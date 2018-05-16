@@ -112,9 +112,8 @@
         </button>
 
         <div class="btn-group roll-nav roll-right">
-            <button class="dropdown J_tabClose" data-toggle="dropdown" >
-                关闭操作
-                <%--<span class="caret"></span>--%>
+            <button class="dropdown J_tabClose" data-toggle="dropdown" >关闭操作
+                <span class="caret"></span>
             </button>
             <ul role="menu" class="dropdown-menu dropdown-menu-right">
                 <li class="J_tabShowActive"><a>定位当前选项卡</a>
