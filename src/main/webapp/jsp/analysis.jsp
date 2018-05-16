@@ -18,13 +18,8 @@
 
     <link href="${pageContext.request.contextPath}/css/pages/dashboard.css" rel="stylesheet" />
 
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts.js"></script>
 
     <style>
         body{
@@ -33,353 +28,203 @@
     </style>
 
 <body>
-
-<div class="navbar navbar-default">
-
-    <div class="navbar-inner">
-
-        <div class="container">
-
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<%-- 导航条 START --%>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </a>
-
-            <a class="brand" href="./">Adminia Admin</a>
-
-            <div class="nav-collapse">
-
-                <ul class="nav pull-right">
-                    <!--<li>
-                        <a href="#"><span class="badge badge-warning">7</span></a>
-                    </li>-->
-
-                    <li class="divider-vertical"></li>
-
-                    <li class="dropdown">
-
-                        <a data-toggle="dropdown" class="dropdown-toggle " href="#">
-                            Rod Howard <b class="caret"></b>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="icon-user"></i> Account Setting  </a>
-                            </li>
-
-                            <li>
-                                <a href="#"><i class="icon-lock"></i> Change Password</a>
-                            </li>
-
-                            <li class="divider"></li>
-
-                            <li>
-                                <a href="./"><i class="icon-off"></i> Logout</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            </div> <!-- /nav-collapse -->
-
-        </div> <!-- /container -->
-
-    </div> <!-- /navbar-inner -->
-
-</div> <!-- /navbar -->
-
-<%-- 搜索条件 START --%>
-<div style="width: 80%;margin: 0 auto;" class="panel-group" id="accordion">
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                    查询条件
-                </a>
-            </h4>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
-            <div class="panel-body">
-                查询条件内容
-            </div>
-        </div>
-    </div>
-    <div class="input-append date form_datetime" data-date="2013-02-21T15:25:00Z">
-        <input size="16" type="text" value="" readonly>
-        <span class="add-on"><i class="icon-remove"></i></span>
-        <span class="add-on"><i class="icon-calendar"></i></span>
-    </div>
-</div>
-<%-- 搜索条件 END--%>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<%-- 导航条 END --%>
 
 <%-- 日期控件 START --%>
-<div class="container">
-    <form action="" class="form-horizontal"  role="form">
-        <fieldset>
+    <div class="container">
+        <form action="" class="form-horizontal"  role="form">
 
-            <div class="form-group">
-                <label for="dtp_input2" class="control-label">Date Picking</label>
-                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="16" type="text" value="" readonly>
+            <div>
+                <%--<label style="float: left" class="control-label">起始日期</label>--%>
+                <div style="float: left;width: 20%" class="input-group date form_date " data-date=""
+                     data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" type="text" value="起始日期" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
-                <input type="hidden" id="dtp_input2" value="" /><br/>
+
+                <%--<label style="float: left" class="control-label">截止日期</label>--%>
+                <div style="float: left;width: 20%" class="input-group date form_date " data-date=""
+                     data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" type="text" value="截止日期" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
             </div>
 
-        </fieldset>
-    </form>
-</div>
+        </form>
+    </div>
 <%-- 日期控件 END--%>
 
+<%-- 折线图 START --%>
+<div style="margin-top: 15px" class="container">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+</div>
 
-
-<div id="content">
-
-    <div class="container">
-
-        <div class="row">
-
-            <div class="span9">
-
-                <h1 class="page-title">
-                    <i class="icon-home"></i>
-                    Dashboard
-                </h1>
-
-                <div class="stat-container">
-
-                    <div class="stat-holder">
-                        <div class="stat">
-                            <span>564</span>
-                            Completed Sales
-                        </div> <!-- /stat -->
-                    </div> <!-- /stat-holder -->
-
-                    <div class="stat-holder">
-                        <div class="stat">
-                            <span>423</span>
-                            Pending Sales
-                        </div> <!-- /stat -->
-                    </div> <!-- /stat-holder -->
-
-                    <div class="stat-holder">
-                        <div class="stat">
-                            <span>96</span>
-                            Returned Sales
-                        </div> <!-- /stat -->
-                    </div> <!-- /stat-holder -->
-
-                    <div class="stat-holder">
-                        <div class="stat">
-                            <span>2</span>
-                            Chargebacks
-                        </div> <!-- /stat -->
-                    </div> <!-- /stat-holder -->
-
-                </div> <!-- /stat-container -->
-
-                <div class="widget">
-
-                    <div class="widget-header">
-                        <i class="icon-signal"></i>
-                        <h3>Area Chart</h3>
-                    </div> <!-- /widget-header -->
-
-                    <div class="widget-content">
-                        <div id="bar-chart" class="chart-holder"></div> <!-- /bar-chart -->
-                    </div> <!-- /widget-content -->
-
-                </div> <!-- /widget -->
-
-
-
-                <div class="widget widget-table">
-
-                    <div class="widget-header">
-                        <i class="icon-th-list"></i>
-                        <h3>Table</h3>
-                    </div> <!-- /widget-header -->
-
-                    <div class="widget-content">
-
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                                <th>Company</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Michael</td>
-                                <td>Jordan</td>
-                                <td>@mjordan</td>
-                                <td>Chicago Bulls</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Magic</td>
-                                <td>Johnson</td>
-                                <td>@mjohnson</td>
-                                <td>Los Angeles Lakers</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Charles</td>
-                                <td>Barkley</td>
-                                <td>@cbarkley</td>
-                                <td>Phoenix Suns</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Karl</td>
-                                <td>Malone</td>
-                                <td>@kmalone</td>
-                                <td>Utah Jazz</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>David</td>
-                                <td>Robinson</td>
-                                <td>@drobinson</td>
-                                <td>San Antonio Spurs</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Reggie</td>
-                                <td>Miller</td>
-                                <td>@rmiller</td>
-                                <td>Indiana Pacers</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>Clyde</td>
-                                <td>Drexler</td>
-                                <td>@cdrexler</td>
-                                <td>Portland Trail Blazers</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>Hakeem</td>
-                                <td>Olajuwon</td>
-                                <td>@holajuwon</td>
-                                <td>Houston Rockets</td>
-                                <td class="action-td">
-                                    <a href="javascript:;" class="btn btn-small btn-warning">
-                                        <i class="icon-ok"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-small">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div> <!-- /widget-content -->
-
-                </div> <!-- /widget -->
-
-
-            </div> <!-- /span9 -->
-
-
-        </div> <!-- /row -->
-
-    </div> <!-- /container -->
-
-</div> <!-- /content -->
-
+<%-- 折线图 END --%>
 
 <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-<script src="${pageContext.request.contextPath}/js/excanvas.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.flot.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.flot.pie.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.flot.orderBars.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.flot.resize.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/js/charts/bar.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.fr.js"></script>
 <script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title: {
+            text: '未来一周气温变化',
+            subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['最高气温','最低气温']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                dataView: {readOnly: false},
+                magicType: {type: ['line', 'bar']},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis:  {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一','周二','周三','周四','周五','周六','周日']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} °C'
+            }
+        },
+        series: [
+            {
+                name:'最高气温',
+                type:'line',
+                data:[11, 11, 15, 13, 12, 13, 10],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name:'最低气温',
+                type:'line',
+                data:[1, -2, 2, 5, 3, 2, 0],
+                markPoint: {
+                    data: [
+                        {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'},
+                        [{
+                            symbol: 'none',
+                            x: '90%',
+                            yAxis: 'max'
+                        }, {
+                            symbol: 'circle',
+                            label: {
+                                normal: {
+                                    position: 'start',
+                                    formatter: '最大值'
+                                }
+                            },
+                            type: 'max',
+                            name: '最高点'
+                        }]
+                    ]
+                }
+            }
+        ]
+    };
+    myChart.setOption(option)
+
+
     $(function () {
         $('#collapseTwo').collapse({
             toggle: false
         })
     })
-    $('.form_datetime').datetimepicker({
-        weekStart: 0, //一周从哪一天开始
-        todayBtn:  1, //
+    $('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
         startView: 2,
-        forceParse: 0,
-        showMeridian: 1
+        minView: 2,
+        forceParse: 0
     });
 </script>
 </body>
