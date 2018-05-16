@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Title</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Simple Sidebar - Start Bootstrap Template</title>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/simple-sidebar.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <%--<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">--%>
+    <%--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">--%>
+    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 </head>
 <body style="height:100%;">

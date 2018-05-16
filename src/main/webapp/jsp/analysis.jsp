@@ -10,8 +10,7 @@
 
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" rel="stylesheet" />
-
-
+    <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" />
 
     <link href="${pageContext.request.contextPath}/css/adminia.css" rel="stylesheet" />
@@ -35,7 +34,7 @@
 
 <body>
 
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-default">
 
     <div class="navbar-inner">
 
@@ -89,6 +88,51 @@
     </div> <!-- /navbar-inner -->
 
 </div> <!-- /navbar -->
+
+<%-- 搜索条件 START --%>
+<div style="width: 80%;margin: 0 auto;" class="panel-group" id="accordion">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    查询条件
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                查询条件内容
+            </div>
+        </div>
+    </div>
+    <div class="input-append date form_datetime" data-date="2013-02-21T15:25:00Z">
+        <input size="16" type="text" value="" readonly>
+        <span class="add-on"><i class="icon-remove"></i></span>
+        <span class="add-on"><i class="icon-calendar"></i></span>
+    </div>
+</div>
+<%-- 搜索条件 END--%>
+
+<%-- 日期控件 START --%>
+<div class="container">
+    <form action="" class="form-horizontal"  role="form">
+        <fieldset>
+
+            <div class="form-group">
+                <label for="dtp_input2" class="control-label">Date Picking</label>
+                <div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+<%-- 日期控件 END--%>
+
 
 
 <div id="content">
@@ -311,19 +355,33 @@
 </div> <!-- /content -->
 
 
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 <script src="${pageContext.request.contextPath}/js/excanvas.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.flot.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.flot.pie.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.flot.orderBars.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.flot.resize.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/js/charts/bar.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.fr.js"></script>
+<script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#collapseTwo').collapse({
+            toggle: false
+        })
+    })
+    $('.form_datetime').datetimepicker({
+        weekStart: 0, //一周从哪一天开始
+        todayBtn:  1, //
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+</script>
 </body>
 </html>
 
