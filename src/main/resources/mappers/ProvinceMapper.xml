@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.ProvinceMapper" >
+  <resultMap id="BaseResultMap" type="com.wf.user.model.Province" >
+    <id column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="MODIFY" property="modify" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="NationCode" property="nationcode" jdbcType="VARCHAR" />
+    <result column="Pcode" property="pcode" jdbcType="VARCHAR" />
+    <result column="Pname" property="pname" jdbcType="VARCHAR" />
+    <result column="PrecordCreationDate" property="precordcreationdate" jdbcType="TIMESTAMP" />
+    <result column="PrecordCreator" property="precordcreator" jdbcType="VARCHAR" />
+    <result column="PrecordVersion" property="precordversion" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="CREATER_TIME" property="createrTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PID, CREATE_TIME, CREATOR, IS_DELETED, MODIFY, MODIFY_TIME, NationCode, Pcode, Pname, 
+    PrecordCreationDate, PrecordCreator, PrecordVersion, CREATER, CREATER_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wf.user.model.ProvinceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SDF_PROVINCE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SDF_PROVINCE
+    where PID = #{pid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SDF_PROVINCE
+    where PID = #{pid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wf.user.model.ProvinceExample" >
+    delete from T_SDF_PROVINCE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wf.user.model.Province" >
+    insert into T_SDF_PROVINCE (PID, CREATE_TIME, CREATOR, 
+      IS_DELETED, MODIFY, MODIFY_TIME, 
+      NationCode, Pcode, Pname, 
+      PrecordCreationDate, PrecordCreator, 
+      PrecordVersion, CREATER, CREATER_TIME
+      )
+    values (#{pid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{modify,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{nationcode,jdbcType=VARCHAR}, #{pcode,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
+      #{precordcreationdate,jdbcType=TIMESTAMP}, #{precordcreator,jdbcType=VARCHAR}, 
+      #{precordversion,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createrTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wf.user.model.Province" >
+    insert into T_SDF_PROVINCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        PID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="modify != null" >
+        MODIFY,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="nationcode != null" >
+        NationCode,
+      </if>
+      <if test="pcode != null" >
+        Pcode,
+      </if>
+      <if test="pname != null" >
+        Pname,
+      </if>
+      <if test="precordcreationdate != null" >
+        PrecordCreationDate,
+      </if>
+      <if test="precordcreator != null" >
+        PrecordCreator,
+      </if>
+      <if test="precordversion != null" >
+        PrecordVersion,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="createrTime != null" >
+        CREATER_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nationcode != null" >
+        #{nationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        #{pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="precordcreationdate != null" >
+        #{precordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="precordcreator != null" >
+        #{precordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="precordversion != null" >
+        #{precordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wf.user.model.ProvinceExample" resultType="java.lang.Integer" >
+    select count(*) from T_SDF_PROVINCE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_SDF_PROVINCE
+    <set >
+      <if test="record.pid != null" >
+        PID = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modify != null" >
+        MODIFY = #{record.modify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nationcode != null" >
+        NationCode = #{record.nationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcode != null" >
+        Pcode = #{record.pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pname != null" >
+        Pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.precordcreationdate != null" >
+        PrecordCreationDate = #{record.precordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.precordcreator != null" >
+        PrecordCreator = #{record.precordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.precordversion != null" >
+        PrecordVersion = #{record.precordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        CREATER_TIME = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_SDF_PROVINCE
+    set PID = #{record.pid,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{record.modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      NationCode = #{record.nationcode,jdbcType=VARCHAR},
+      Pcode = #{record.pcode,jdbcType=VARCHAR},
+      Pname = #{record.pname,jdbcType=VARCHAR},
+      PrecordCreationDate = #{record.precordcreationdate,jdbcType=TIMESTAMP},
+      PrecordCreator = #{record.precordcreator,jdbcType=VARCHAR},
+      PrecordVersion = #{record.precordversion,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      CREATER_TIME = #{record.createrTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wf.user.model.Province" >
+    update T_SDF_PROVINCE
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        MODIFY = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nationcode != null" >
+        NationCode = #{nationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        Pcode = #{pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        Pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="precordcreationdate != null" >
+        PrecordCreationDate = #{precordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="precordcreator != null" >
+        PrecordCreator = #{precordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="precordversion != null" >
+        PrecordVersion = #{precordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        CREATER_TIME = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where PID = #{pid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wf.user.model.Province" >
+    update T_SDF_PROVINCE
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      NationCode = #{nationcode,jdbcType=VARCHAR},
+      Pcode = #{pcode,jdbcType=VARCHAR},
+      Pname = #{pname,jdbcType=VARCHAR},
+      PrecordCreationDate = #{precordcreationdate,jdbcType=TIMESTAMP},
+      PrecordCreator = #{precordcreator,jdbcType=VARCHAR},
+      PrecordVersion = #{precordversion,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      CREATER_TIME = #{createrTime,jdbcType=TIMESTAMP}
+    where PID = #{pid,jdbcType=VARCHAR}
+  </update>
+</mapper>

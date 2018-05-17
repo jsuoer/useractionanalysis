@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.UserArea" >
+
+
+    <select id="getUserBycity" resultType="com.wf.user.model.CityUser">
+        SELECT c.Cname as cityname,COUNT(1) as num
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c ON t.CITY_CODE=c.Ccode
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        GROUP BY c.Cname
+    </select>
+    <select id="getUserByProvince" resultType="com.wf.user.model.ProvinceUser">
+        SELECT c.Pname AS provincename,COUNT(1) AS num
+        FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE c ON t.PROVINCE_CODE=c.Pcode
+        WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0 AND t.IS_VIRTUAL=0
+        GROUP BY c.Pname
+    </select>
+</mapper>

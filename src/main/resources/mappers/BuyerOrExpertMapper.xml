@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.BuyerOrExpertMapper" >
+  <resultMap id="BaseResultMap" type="com.wf.user.model.BuyerOrExpert" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="MODIFY" property="modify" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="COLOR_COINS" property="colorCoins" jdbcType="DECIMAL" />
+    <result column="COORDINATE" property="coordinate" jdbcType="VARCHAR" />
+    <result column="HANDSEL" property="handsel" jdbcType="DECIMAL" />
+    <result column="IS_EXPERT" property="isExpert" jdbcType="VARCHAR" />
+    <result column="IS_PHONE" property="isPhone" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="REGION_CODE" property="regionCode" jdbcType="VARCHAR" />
+    <result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+    <result column="RONGYUN_ID" property="rongyunId" jdbcType="VARCHAR" />
+    <result column="CAILIAO_NAME" property="cailiaoName" jdbcType="VARCHAR" />
+    <result column="ID_NUMBER" property="idNumber" jdbcType="VARCHAR" />
+    <result column="ID_NUMBER_BACK_IMG" property="idNumberBackImg" jdbcType="VARCHAR" />
+    <result column="ID_NUMBER_FRONT_IMG" property="idNumberFrontImg" jdbcType="VARCHAR" />
+    <result column="IS_ROBOT" property="isRobot" jdbcType="VARCHAR" />
+    <result column="IS_STATION_OWNER" property="isStationOwner" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="SIGNATURE" property="signature" jdbcType="VARCHAR" />
+    <result column="TOKEN" property="token" jdbcType="VARCHAR" />
+    <result column="TOU_XIANG" property="touXiang" jdbcType="VARCHAR" />
+    <result column="INVITE_CODE" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="IS_VIRTUAL" property="isVirtual" jdbcType="VARCHAR" />
+    <result column="FROM_APP" property="fromApp" jdbcType="VARCHAR" />
+    <result column="USER_TOKEN" property="userToken" jdbcType="VARCHAR" />
+    <result column="ALREADY_LOGIN" property="alreadyLogin" jdbcType="INTEGER" />
+    <result column="WX_OPEN_ID" property="wxOpenId" jdbcType="VARCHAR" />
+    <result column="COLUME1" property="colume1" jdbcType="VARCHAR" />
+    <result column="COLUME2" property="colume2" jdbcType="VARCHAR" />
+    <result column="COLUME3" property="colume3" jdbcType="VARCHAR" />
+    <result column="INVITE_CODE_OF_PROXY" property="inviteCodeOfProxy" jdbcType="VARCHAR" />
+    <result column="IS_PROXY" property="isProxy" jdbcType="VARCHAR" />
+    <result column="PROXY_INVITECODE" property="proxyInvitecode" jdbcType="VARCHAR" />
+    <result column="TV_LOGIN" property="tvLogin" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CREATE_TIME, CREATOR, IS_DELETED, MODIFY, MODIFY_TIME, ADDRESS, CITY_CODE, CODE, 
+    COLOR_COINS, COORDINATE, HANDSEL, IS_EXPERT, IS_PHONE, NAME, PASSWORD, PROVINCE_CODE, 
+    REGION_CODE, TELEPHONE, RONGYUN_ID, CAILIAO_NAME, ID_NUMBER, ID_NUMBER_BACK_IMG, 
+    ID_NUMBER_FRONT_IMG, IS_ROBOT, IS_STATION_OWNER, POST_CODE, SEX, SIGNATURE, TOKEN, 
+    TOU_XIANG, INVITE_CODE, IS_VIRTUAL, FROM_APP, USER_TOKEN, ALREADY_LOGIN, WX_OPEN_ID, 
+    COLUME1, COLUME2, COLUME3, INVITE_CODE_OF_PROXY, IS_PROXY, PROXY_INVITECODE, TV_LOGIN
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wf.user.model.BuyerOrExpertExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_LT_LOTTERYBUYER_OR_EXPERT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_LT_LOTTERYBUYER_OR_EXPERT
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_LT_LOTTERYBUYER_OR_EXPERT
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wf.user.model.BuyerOrExpertExample" >
+    delete from T_LT_LOTTERYBUYER_OR_EXPERT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wf.user.model.BuyerOrExpert" >
+    insert into T_LT_LOTTERYBUYER_OR_EXPERT (ID, CREATE_TIME, CREATOR, 
+      IS_DELETED, MODIFY, MODIFY_TIME, 
+      ADDRESS, CITY_CODE, CODE, 
+      COLOR_COINS, COORDINATE, HANDSEL, 
+      IS_EXPERT, IS_PHONE, NAME, 
+      PASSWORD, PROVINCE_CODE, REGION_CODE, 
+      TELEPHONE, RONGYUN_ID, CAILIAO_NAME, 
+      ID_NUMBER, ID_NUMBER_BACK_IMG, ID_NUMBER_FRONT_IMG, 
+      IS_ROBOT, IS_STATION_OWNER, POST_CODE, 
+      SEX, SIGNATURE, TOKEN, 
+      TOU_XIANG, INVITE_CODE, IS_VIRTUAL, 
+      FROM_APP, USER_TOKEN, ALREADY_LOGIN, 
+      WX_OPEN_ID, COLUME1, COLUME2, 
+      COLUME3, INVITE_CODE_OF_PROXY, IS_PROXY, 
+      PROXY_INVITECODE, TV_LOGIN)
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{modify,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{address,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{colorCoins,jdbcType=DECIMAL}, #{coordinate,jdbcType=VARCHAR}, #{handsel,jdbcType=DECIMAL}, 
+      #{isExpert,jdbcType=VARCHAR}, #{isPhone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, #{regionCode,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{rongyunId,jdbcType=VARCHAR}, #{cailiaoName,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{idNumberBackImg,jdbcType=VARCHAR}, #{idNumberFrontImg,jdbcType=VARCHAR}, 
+      #{isRobot,jdbcType=VARCHAR}, #{isStationOwner,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
+      #{touXiang,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR}, #{isVirtual,jdbcType=VARCHAR}, 
+      #{fromApp,jdbcType=VARCHAR}, #{userToken,jdbcType=VARCHAR}, #{alreadyLogin,jdbcType=INTEGER}, 
+      #{wxOpenId,jdbcType=VARCHAR}, #{colume1,jdbcType=VARCHAR}, #{colume2,jdbcType=VARCHAR}, 
+      #{colume3,jdbcType=VARCHAR}, #{inviteCodeOfProxy,jdbcType=VARCHAR}, #{isProxy,jdbcType=VARCHAR}, 
+      #{proxyInvitecode,jdbcType=VARCHAR}, #{tvLogin,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wf.user.model.BuyerOrExpert" >
+    insert into T_LT_LOTTERYBUYER_OR_EXPERT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="modify != null" >
+        MODIFY,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="colorCoins != null" >
+        COLOR_COINS,
+      </if>
+      <if test="coordinate != null" >
+        COORDINATE,
+      </if>
+      <if test="handsel != null" >
+        HANDSEL,
+      </if>
+      <if test="isExpert != null" >
+        IS_EXPERT,
+      </if>
+      <if test="isPhone != null" >
+        IS_PHONE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="regionCode != null" >
+        REGION_CODE,
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE,
+      </if>
+      <if test="rongyunId != null" >
+        RONGYUN_ID,
+      </if>
+      <if test="cailiaoName != null" >
+        CAILIAO_NAME,
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER,
+      </if>
+      <if test="idNumberBackImg != null" >
+        ID_NUMBER_BACK_IMG,
+      </if>
+      <if test="idNumberFrontImg != null" >
+        ID_NUMBER_FRONT_IMG,
+      </if>
+      <if test="isRobot != null" >
+        IS_ROBOT,
+      </if>
+      <if test="isStationOwner != null" >
+        IS_STATION_OWNER,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="signature != null" >
+        SIGNATURE,
+      </if>
+      <if test="token != null" >
+        TOKEN,
+      </if>
+      <if test="touXiang != null" >
+        TOU_XIANG,
+      </if>
+      <if test="inviteCode != null" >
+        INVITE_CODE,
+      </if>
+      <if test="isVirtual != null" >
+        IS_VIRTUAL,
+      </if>
+      <if test="fromApp != null" >
+        FROM_APP,
+      </if>
+      <if test="userToken != null" >
+        USER_TOKEN,
+      </if>
+      <if test="alreadyLogin != null" >
+        ALREADY_LOGIN,
+      </if>
+      <if test="wxOpenId != null" >
+        WX_OPEN_ID,
+      </if>
+      <if test="colume1 != null" >
+        COLUME1,
+      </if>
+      <if test="colume2 != null" >
+        COLUME2,
+      </if>
+      <if test="colume3 != null" >
+        COLUME3,
+      </if>
+      <if test="inviteCodeOfProxy != null" >
+        INVITE_CODE_OF_PROXY,
+      </if>
+      <if test="isProxy != null" >
+        IS_PROXY,
+      </if>
+      <if test="proxyInvitecode != null" >
+        PROXY_INVITECODE,
+      </if>
+      <if test="tvLogin != null" >
+        TV_LOGIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCoins != null" >
+        #{colorCoins,jdbcType=DECIMAL},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="handsel != null" >
+        #{handsel,jdbcType=DECIMAL},
+      </if>
+      <if test="isExpert != null" >
+        #{isExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhone != null" >
+        #{isPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="rongyunId != null" >
+        #{rongyunId,jdbcType=VARCHAR},
+      </if>
+      <if test="cailiaoName != null" >
+        #{cailiaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumberBackImg != null" >
+        #{idNumberBackImg,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumberFrontImg != null" >
+        #{idNumberFrontImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isRobot != null" >
+        #{isRobot,jdbcType=VARCHAR},
+      </if>
+      <if test="isStationOwner != null" >
+        #{isStationOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="touXiang != null" >
+        #{touXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isVirtual != null" >
+        #{isVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="fromApp != null" >
+        #{fromApp,jdbcType=VARCHAR},
+      </if>
+      <if test="userToken != null" >
+        #{userToken,jdbcType=VARCHAR},
+      </if>
+      <if test="alreadyLogin != null" >
+        #{alreadyLogin,jdbcType=INTEGER},
+      </if>
+      <if test="wxOpenId != null" >
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="colume1 != null" >
+        #{colume1,jdbcType=VARCHAR},
+      </if>
+      <if test="colume2 != null" >
+        #{colume2,jdbcType=VARCHAR},
+      </if>
+      <if test="colume3 != null" >
+        #{colume3,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCodeOfProxy != null" >
+        #{inviteCodeOfProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="isProxy != null" >
+        #{isProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyInvitecode != null" >
+        #{proxyInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="tvLogin != null" >
+        #{tvLogin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wf.user.model.BuyerOrExpertExample" resultType="java.lang.Integer" >
+    select count(*) from T_LT_LOTTERYBUYER_OR_EXPERT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_LT_LOTTERYBUYER_OR_EXPERT
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modify != null" >
+        MODIFY = #{record.modify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colorCoins != null" >
+        COLOR_COINS = #{record.colorCoins,jdbcType=DECIMAL},
+      </if>
+      <if test="record.coordinate != null" >
+        COORDINATE = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handsel != null" >
+        HANDSEL = #{record.handsel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isExpert != null" >
+        IS_EXPERT = #{record.isExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPhone != null" >
+        IS_PHONE = #{record.isPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceCode != null" >
+        PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionCode != null" >
+        REGION_CODE = #{record.regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rongyunId != null" >
+        RONGYUN_ID = #{record.rongyunId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cailiaoName != null" >
+        CAILIAO_NAME = #{record.cailiaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNumber != null" >
+        ID_NUMBER = #{record.idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNumberBackImg != null" >
+        ID_NUMBER_BACK_IMG = #{record.idNumberBackImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNumberFrontImg != null" >
+        ID_NUMBER_FRONT_IMG = #{record.idNumberFrontImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRobot != null" >
+        IS_ROBOT = #{record.isRobot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isStationOwner != null" >
+        IS_STATION_OWNER = #{record.isStationOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null" >
+        POST_CODE = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null" >
+        SIGNATURE = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null" >
+        TOKEN = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touXiang != null" >
+        TOU_XIANG = #{record.touXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviteCode != null" >
+        INVITE_CODE = #{record.inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isVirtual != null" >
+        IS_VIRTUAL = #{record.isVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromApp != null" >
+        FROM_APP = #{record.fromApp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userToken != null" >
+        USER_TOKEN = #{record.userToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alreadyLogin != null" >
+        ALREADY_LOGIN = #{record.alreadyLogin,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxOpenId != null" >
+        WX_OPEN_ID = #{record.wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colume1 != null" >
+        COLUME1 = #{record.colume1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colume2 != null" >
+        COLUME2 = #{record.colume2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colume3 != null" >
+        COLUME3 = #{record.colume3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviteCodeOfProxy != null" >
+        INVITE_CODE_OF_PROXY = #{record.inviteCodeOfProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isProxy != null" >
+        IS_PROXY = #{record.isProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proxyInvitecode != null" >
+        PROXY_INVITECODE = #{record.proxyInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tvLogin != null" >
+        TV_LOGIN = #{record.tvLogin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_LT_LOTTERYBUYER_OR_EXPERT
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{record.modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      COLOR_COINS = #{record.colorCoins,jdbcType=DECIMAL},
+      COORDINATE = #{record.coordinate,jdbcType=VARCHAR},
+      HANDSEL = #{record.handsel,jdbcType=DECIMAL},
+      IS_EXPERT = #{record.isExpert,jdbcType=VARCHAR},
+      IS_PHONE = #{record.isPhone,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      REGION_CODE = #{record.regionCode,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=VARCHAR},
+      RONGYUN_ID = #{record.rongyunId,jdbcType=VARCHAR},
+      CAILIAO_NAME = #{record.cailiaoName,jdbcType=VARCHAR},
+      ID_NUMBER = #{record.idNumber,jdbcType=VARCHAR},
+      ID_NUMBER_BACK_IMG = #{record.idNumberBackImg,jdbcType=VARCHAR},
+      ID_NUMBER_FRONT_IMG = #{record.idNumberFrontImg,jdbcType=VARCHAR},
+      IS_ROBOT = #{record.isRobot,jdbcType=VARCHAR},
+      IS_STATION_OWNER = #{record.isStationOwner,jdbcType=VARCHAR},
+      POST_CODE = #{record.postCode,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=VARCHAR},
+      SIGNATURE = #{record.signature,jdbcType=VARCHAR},
+      TOKEN = #{record.token,jdbcType=VARCHAR},
+      TOU_XIANG = #{record.touXiang,jdbcType=VARCHAR},
+      INVITE_CODE = #{record.inviteCode,jdbcType=VARCHAR},
+      IS_VIRTUAL = #{record.isVirtual,jdbcType=VARCHAR},
+      FROM_APP = #{record.fromApp,jdbcType=VARCHAR},
+      USER_TOKEN = #{record.userToken,jdbcType=VARCHAR},
+      ALREADY_LOGIN = #{record.alreadyLogin,jdbcType=INTEGER},
+      WX_OPEN_ID = #{record.wxOpenId,jdbcType=VARCHAR},
+      COLUME1 = #{record.colume1,jdbcType=VARCHAR},
+      COLUME2 = #{record.colume2,jdbcType=VARCHAR},
+      COLUME3 = #{record.colume3,jdbcType=VARCHAR},
+      INVITE_CODE_OF_PROXY = #{record.inviteCodeOfProxy,jdbcType=VARCHAR},
+      IS_PROXY = #{record.isProxy,jdbcType=VARCHAR},
+      PROXY_INVITECODE = #{record.proxyInvitecode,jdbcType=VARCHAR},
+      TV_LOGIN = #{record.tvLogin,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wf.user.model.BuyerOrExpert" >
+    update T_LT_LOTTERYBUYER_OR_EXPERT
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        MODIFY = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCoins != null" >
+        COLOR_COINS = #{colorCoins,jdbcType=DECIMAL},
+      </if>
+      <if test="coordinate != null" >
+        COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="handsel != null" >
+        HANDSEL = #{handsel,jdbcType=DECIMAL},
+      </if>
+      <if test="isExpert != null" >
+        IS_EXPERT = #{isExpert,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhone != null" >
+        IS_PHONE = #{isPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null" >
+        REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="rongyunId != null" >
+        RONGYUN_ID = #{rongyunId,jdbcType=VARCHAR},
+      </if>
+      <if test="cailiaoName != null" >
+        CAILIAO_NAME = #{cailiaoName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null" >
+        ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumberBackImg != null" >
+        ID_NUMBER_BACK_IMG = #{idNumberBackImg,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumberFrontImg != null" >
+        ID_NUMBER_FRONT_IMG = #{idNumberFrontImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isRobot != null" >
+        IS_ROBOT = #{isRobot,jdbcType=VARCHAR},
+      </if>
+      <if test="isStationOwner != null" >
+        IS_STATION_OWNER = #{isStationOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        SIGNATURE = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        TOKEN = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="touXiang != null" >
+        TOU_XIANG = #{touXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCode != null" >
+        INVITE_CODE = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isVirtual != null" >
+        IS_VIRTUAL = #{isVirtual,jdbcType=VARCHAR},
+      </if>
+      <if test="fromApp != null" >
+        FROM_APP = #{fromApp,jdbcType=VARCHAR},
+      </if>
+      <if test="userToken != null" >
+        USER_TOKEN = #{userToken,jdbcType=VARCHAR},
+      </if>
+      <if test="alreadyLogin != null" >
+        ALREADY_LOGIN = #{alreadyLogin,jdbcType=INTEGER},
+      </if>
+      <if test="wxOpenId != null" >
+        WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="colume1 != null" >
+        COLUME1 = #{colume1,jdbcType=VARCHAR},
+      </if>
+      <if test="colume2 != null" >
+        COLUME2 = #{colume2,jdbcType=VARCHAR},
+      </if>
+      <if test="colume3 != null" >
+        COLUME3 = #{colume3,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCodeOfProxy != null" >
+        INVITE_CODE_OF_PROXY = #{inviteCodeOfProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="isProxy != null" >
+        IS_PROXY = #{isProxy,jdbcType=VARCHAR},
+      </if>
+      <if test="proxyInvitecode != null" >
+        PROXY_INVITECODE = #{proxyInvitecode,jdbcType=VARCHAR},
+      </if>
+      <if test="tvLogin != null" >
+        TV_LOGIN = #{tvLogin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wf.user.model.BuyerOrExpert" >
+    update T_LT_LOTTERYBUYER_OR_EXPERT
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      COLOR_COINS = #{colorCoins,jdbcType=DECIMAL},
+      COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      HANDSEL = #{handsel,jdbcType=DECIMAL},
+      IS_EXPERT = #{isExpert,jdbcType=VARCHAR},
+      IS_PHONE = #{isPhone,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      REGION_CODE = #{regionCode,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      RONGYUN_ID = #{rongyunId,jdbcType=VARCHAR},
+      CAILIAO_NAME = #{cailiaoName,jdbcType=VARCHAR},
+      ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+      ID_NUMBER_BACK_IMG = #{idNumberBackImg,jdbcType=VARCHAR},
+      ID_NUMBER_FRONT_IMG = #{idNumberFrontImg,jdbcType=VARCHAR},
+      IS_ROBOT = #{isRobot,jdbcType=VARCHAR},
+      IS_STATION_OWNER = #{isStationOwner,jdbcType=VARCHAR},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      SIGNATURE = #{signature,jdbcType=VARCHAR},
+      TOKEN = #{token,jdbcType=VARCHAR},
+      TOU_XIANG = #{touXiang,jdbcType=VARCHAR},
+      INVITE_CODE = #{inviteCode,jdbcType=VARCHAR},
+      IS_VIRTUAL = #{isVirtual,jdbcType=VARCHAR},
+      FROM_APP = #{fromApp,jdbcType=VARCHAR},
+      USER_TOKEN = #{userToken,jdbcType=VARCHAR},
+      ALREADY_LOGIN = #{alreadyLogin,jdbcType=INTEGER},
+      WX_OPEN_ID = #{wxOpenId,jdbcType=VARCHAR},
+      COLUME1 = #{colume1,jdbcType=VARCHAR},
+      COLUME2 = #{colume2,jdbcType=VARCHAR},
+      COLUME3 = #{colume3,jdbcType=VARCHAR},
+      INVITE_CODE_OF_PROXY = #{inviteCodeOfProxy,jdbcType=VARCHAR},
+      IS_PROXY = #{isProxy,jdbcType=VARCHAR},
+      PROXY_INVITECODE = #{proxyInvitecode,jdbcType=VARCHAR},
+      TV_LOGIN = #{tvLogin,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

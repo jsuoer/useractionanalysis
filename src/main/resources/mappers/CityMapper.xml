@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.CityMapper" >
+  <resultMap id="BaseResultMap" type="com.wf.user.model.City" >
+    <id column="CID" property="cid" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="MODIFY" property="modify" jdbcType="VARCHAR" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="Ccode" property="ccode" jdbcType="VARCHAR" />
+    <result column="Cname" property="cname" jdbcType="VARCHAR" />
+    <result column="CrecordCreationDate" property="crecordcreationdate" jdbcType="TIMESTAMP" />
+    <result column="CrecordCreator" property="crecordcreator" jdbcType="VARCHAR" />
+    <result column="CrecordVersion" property="crecordversion" jdbcType="VARCHAR" />
+    <result column="ProvinceCode" property="provincecode" jdbcType="VARCHAR" />
+    <result column="CREATER_TIME" property="createrTime" jdbcType="TIMESTAMP" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CID, CREATE_TIME, CREATOR, IS_DELETED, MODIFY, MODIFY_TIME, Ccode, Cname, CrecordCreationDate, 
+    CrecordCreator, CrecordVersion, ProvinceCode, CREATER_TIME, CREATER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wf.user.model.CityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SDF_CITY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SDF_CITY
+    where CID = #{cid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_SDF_CITY
+    where CID = #{cid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wf.user.model.CityExample" >
+    delete from T_SDF_CITY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wf.user.model.City" >
+    insert into T_SDF_CITY (CID, CREATE_TIME, CREATOR, 
+      IS_DELETED, MODIFY, MODIFY_TIME, 
+      Ccode, Cname, CrecordCreationDate, 
+      CrecordCreator, CrecordVersion, ProvinceCode, 
+      CREATER_TIME, CREATER)
+    values (#{cid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{modify,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{ccode,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{crecordcreationdate,jdbcType=TIMESTAMP}, 
+      #{crecordcreator,jdbcType=VARCHAR}, #{crecordversion,jdbcType=VARCHAR}, #{provincecode,jdbcType=VARCHAR}, 
+      #{createrTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wf.user.model.City" >
+    insert into T_SDF_CITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="modify != null" >
+        MODIFY,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="ccode != null" >
+        Ccode,
+      </if>
+      <if test="cname != null" >
+        Cname,
+      </if>
+      <if test="crecordcreationdate != null" >
+        CrecordCreationDate,
+      </if>
+      <if test="crecordcreator != null" >
+        CrecordCreator,
+      </if>
+      <if test="crecordversion != null" >
+        CrecordVersion,
+      </if>
+      <if test="provincecode != null" >
+        ProvinceCode,
+      </if>
+      <if test="createrTime != null" >
+        CREATER_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccode != null" >
+        #{ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="crecordcreationdate != null" >
+        #{crecordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crecordcreator != null" >
+        #{crecordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="crecordversion != null" >
+        #{crecordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null" >
+        #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wf.user.model.CityExample" resultType="java.lang.Integer" >
+    select count(*) from T_SDF_CITY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_SDF_CITY
+    <set >
+      <if test="record.cid != null" >
+        CID = #{record.cid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modify != null" >
+        MODIFY = #{record.modify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTime != null" >
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ccode != null" >
+        Ccode = #{record.ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cname != null" >
+        Cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crecordcreationdate != null" >
+        CrecordCreationDate = #{record.crecordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crecordcreator != null" >
+        CrecordCreator = #{record.crecordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crecordversion != null" >
+        CrecordVersion = #{record.crecordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provincecode != null" >
+        ProvinceCode = #{record.provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createrTime != null" >
+        CREATER_TIME = #{record.createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_SDF_CITY
+    set CID = #{record.cid,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{record.modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      Ccode = #{record.ccode,jdbcType=VARCHAR},
+      Cname = #{record.cname,jdbcType=VARCHAR},
+      CrecordCreationDate = #{record.crecordcreationdate,jdbcType=TIMESTAMP},
+      CrecordCreator = #{record.crecordcreator,jdbcType=VARCHAR},
+      CrecordVersion = #{record.crecordversion,jdbcType=VARCHAR},
+      ProvinceCode = #{record.provincecode,jdbcType=VARCHAR},
+      CREATER_TIME = #{record.createrTime,jdbcType=TIMESTAMP},
+      CREATER = #{record.creater,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wf.user.model.City" >
+    update T_SDF_CITY
+    <set >
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        MODIFY = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ccode != null" >
+        Ccode = #{ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        Cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="crecordcreationdate != null" >
+        CrecordCreationDate = #{crecordcreationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crecordcreator != null" >
+        CrecordCreator = #{crecordcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="crecordversion != null" >
+        CrecordVersion = #{crecordversion,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null" >
+        ProvinceCode = #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="createrTime != null" >
+        CREATER_TIME = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CID = #{cid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wf.user.model.City" >
+    update T_SDF_CITY
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      MODIFY = #{modify,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      Ccode = #{ccode,jdbcType=VARCHAR},
+      Cname = #{cname,jdbcType=VARCHAR},
+      CrecordCreationDate = #{crecordcreationdate,jdbcType=TIMESTAMP},
+      CrecordCreator = #{crecordcreator,jdbcType=VARCHAR},
+      CrecordVersion = #{crecordversion,jdbcType=VARCHAR},
+      ProvinceCode = #{provincecode,jdbcType=VARCHAR},
+      CREATER_TIME = #{createrTime,jdbcType=TIMESTAMP},
+      CREATER = #{creater,jdbcType=VARCHAR}
+    where CID = #{cid,jdbcType=VARCHAR}
+  </update>
+</mapper>
