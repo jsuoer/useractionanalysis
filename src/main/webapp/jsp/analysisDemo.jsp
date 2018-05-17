@@ -68,7 +68,16 @@
 
     </div>
     <div class="contentDiv">
+        <div class="chartDiv" id="main" ></div>
 
+        <div class="tableDiv">
+            <table id="table1"
+                   data-classes="table table-hover "
+                   data-search="true"
+                   data-show-refresh="true"
+                   data-show-toggle="true"
+                   data-show-columns="true"></table>
+        </div>
     </div>
 
 </body>
