@@ -2,15 +2,29 @@ body
 {
     width: 100%;
     height: 100%;
+    background-color: #f3f3f4;
 }
 
-.top{
-    height: 28%;
-    width: 100%;
+div{
+    border-radius: 5px;
 }
 
-.content{
-    margin-top: 2%;
-    height: 70%;
+.topDiv{
+    height: 19%;
     width: 100%;
+    /*background: white;*/
+}
+
+.contentDiv{
+    margin-top: 1%;
+    height: 80%;
+    width: 100%;
+    background: white;
+}
+
+.title
+{
+    margin-left: 15px;
+    font-size: 15px;
+    margin-top: 5px;
 }

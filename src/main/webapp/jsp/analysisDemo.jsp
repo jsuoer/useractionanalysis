@@ -8,14 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <jsp:include page="common.jsp"></jsp:include>
     <link href="<%=request.getContextPath()%>/css/top.css" rel="stylesheet" />
     <title>布局demo页</title>
+
 </head>
 <body>
-    <div class="top">
-
+    <div class="topDiv">
+        <div class="title">用户分析<i class="fa fa-align-justify fa-fw"></i>
+        </div>
     </div>
-    <div class="content">
+    <div class="contentDiv">
 
     </div>
 

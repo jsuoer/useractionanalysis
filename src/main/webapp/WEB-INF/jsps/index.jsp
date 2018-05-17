@@ -18,7 +18,8 @@
 
     <div class="navbar-header fixed-brand">
         <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle"></button>--%>
-        <a class="navbar-brand" href="#"><span style="font-family: 微软雅黑;font-size: 25px;font-weight: bold">奖聊用户行为分析</span></a>
+        <a class="navbar-brand" href="#"><span style="font-family: 微软雅黑;font-size: 25px;color: white;">
+            <i class="fa fa-bar-chart fa--stack-2x" style="margin-right: 5px;"></i>奖聊用户行为分析</span></a>
     </div>
 
 </nav>
@@ -148,9 +149,9 @@
 
 
 <!-- /#wrapper -->
-<footer class="en text-center navbar-fixed-bottom" style="color: black;">
+<%--<footer class="en text-center navbar-fixed-bottom" style="color: black;">
     Designed By jiangliao &copy; 2016 - 2020 All Right Reserved.
-</footer>
+</footer>--%>
 
 
 
