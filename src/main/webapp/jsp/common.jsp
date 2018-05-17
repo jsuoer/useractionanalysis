@@ -15,6 +15,8 @@
     <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 
+    <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
@@ -22,6 +24,10 @@
     <script src="${pageContext.request.contextPath}/js/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/layer/layer.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/contabs.js"></script>
+
+    <!--bootstrap时间控件-->
+    <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <!--<script src="js/metisMenu/jquery.metisMenu.js"></script>-->
     <!--<script src="js/hplus.min.js"></script>-->
     <%--<script type="text/javascript" src="${pageContext.request.contextPath}/js/contabs.min.js"></script>--%>
