@@ -18,7 +18,8 @@
 
     <div class="navbar-header fixed-brand">
         <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle"></button>--%>
-        <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i>  SEEGATESITE</a>
+        <a class="navbar-brand" href="#"><span style="font-family: 微软雅黑;font-size: 25px;color: white;">
+            <i class="fa fa-bar-chart fa--stack-2x" style="margin-right: 5px;"></i>奖聊用户行为分析</span></a>
     </div>
 
 </nav>
@@ -26,25 +27,30 @@
 
 <!--页面中间内容 START-->
 <!-- Sidebar  START-->
-<div id="wrapper" style="position:absolute;top:54px;bottom:0;">
+<div id="wrapper" style="position:absolute;top:50px;bottom:0;">
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
 
             <li>
                 <a href="#">
                         <span class="fa-stack fa-lg pull-left">
-                             <i class="fa fa-dashboard fa-stack-1x "></i>
+                             <i class="fa fa-users fa-stack-1x "></i>
                         </span>
-                    Dashboard
+                    用户数据分析
                 </a>
+                <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                    <li><a href="${pageContext.request.contextPath}/jsp/analysis.jsp" class="J_menuItem">
+                            <span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>用户区域分析</a></li>
+                </ul>
             </li>
 
             <li>
                 <a href="#">
                         <span class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-dashboard fa-stack-1x "></i>
+                            <i class="fa fa-vcard fa-stack-1x "></i>
                         </span>
-                    Shortcut
+                    用户充值行为分析
                 </a>
 
                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
@@ -56,9 +62,9 @@
                     <li><a href="http://www.runoob.com/bootstrap/bootstrap-tab-plugin.html" class="J_menuItem"><span
                             class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>link3</a></li>
-                    <li><a href="http://echarts.baidu.com/tutorial.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA%20ECharts" class="J_menuItem">
+                    <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem">
                         <span class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i></span>用户管理</a></li>
+                            <i class="fa fa-flag fa-stack-1x "></i></span>分析样式demo页</a></li>
 
                 </ul>
             </li>
@@ -72,9 +78,9 @@
             <li>
                 <a href="#">
                         <span class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i>
+                            <i class="fa fa-dollar fa-stack-1x "></i>
                         </span>
-                    Shortcut2
+                    用户消费行为分析
                 </a>
                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
                     <li>
@@ -82,7 +88,7 @@
                                 <span class="fa-stack fa-lg pull-left">
                                     <i class="fa fa-flag fa-stack-1x "></i>
                                 </span>
-                            link2
+                            消费用户区域分析
                         </a>
                     </li>
                 </ul>
@@ -143,9 +149,9 @@
 
 
 <!-- /#wrapper -->
-<footer class="en text-center navbar-fixed-bottom">
-    Designed By kingdee &copy; 2012 - 2014 All Right Reserved.
-</footer>
+<%--<footer class="en text-center navbar-fixed-bottom" style="color: black;">
+    Designed By jiangliao &copy; 2016 - 2020 All Right Reserved.
+</footer>--%>
 
 
 
