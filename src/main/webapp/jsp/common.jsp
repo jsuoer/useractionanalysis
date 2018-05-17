@@ -17,6 +17,8 @@
 
     <link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
+    <link href="<%=request.getContextPath()%>/css/bootstrap-select.min.css">
+
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
@@ -24,6 +26,9 @@
     <script src="${pageContext.request.contextPath}/js/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/layer/layer.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/contabs.js"></script>
+
+    <!--bootstrap下拉框-->
+    <script src="<%=request.getContextPath()%>/js/bootstrap-select.js"></script>
 
     <!--bootstrap时间控件-->
     <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>

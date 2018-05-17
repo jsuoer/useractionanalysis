@@ -43,6 +43,7 @@ div{
     height: 50px;
     margin-top: 0.5%;
     line-height: 2;
+    float: left;
 }
 
 .form-group{

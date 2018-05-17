@@ -46,6 +46,24 @@
                 </div>
         </div>
 
+        <div class="conditionDiv">
+            <span class="rementDiv">区域：</span>
+            <select  class="selectpicker show-tick" style="outline: none;width:200px;" data-live-search="true" id="select_article" >
+                <option value="">选择省</option>
+                <option value="1">广东省</option>
+                <option value="2">广西省</option>
+                <option value="3">福建省</option>
+                <option value="4">湖南省</option>
+                <option value="5">山东省</option>
+            </select>
+
+            <select  class="selectpicker show-tick" style="outline: none;width:200px;" data-live-search="true" id="select_article2" >
+                <option value="">选择市</option>
+                <option value="1">沈阳市</option>
+                <option value="2">大连市</option>
+            </select>
+        </div>
+
 
 
     </div>
