@@ -28,4 +28,24 @@ div{
     font-size: 15px;
     margin-top: 5px;
     width: 150px;
+    font-weight: bolder;
+}
+.rementDiv{
+    /*width: 150px;*/
+    margin-left: 15px;
+    font-size: 15px;
+    float: left;
+
+}
+
+.conditionDiv{
+    width: 50%;
+    height: 50px;
+    margin-top: 0.5%;
+    line-height: 2;
+}
+
+.form-group{
+    width: 35%;
+    float: left;
 }

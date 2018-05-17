@@ -24,8 +24,8 @@
 
         </div>
 
-        <div class="row" style="margin-left: 5px;">
-            <div class='col-sm-2'>
+        <div class="conditionDiv">
+            <span class="rementDiv">选择时间：</span>
                 <div class="form-group">
                     <!--指定 date标记-->
                     <div class='input-group date' id='datetimepicker1'>
@@ -35,19 +35,18 @@
                     </span>
                     </div>
                 </div>
-            </div>
-            <div class='col-sm-2'>
                 <div class="form-group">
                     <!--指定 date标记-->
                     <div class='input-group date' id='datetimepicker2'>
                         <input type='text' class="form-control" id="datetimepickerVal2"/>
                         <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
-                </span>
+                     </span>
                     </div>
                 </div>
-            </div>
         </div>
+
+
 
     </div>
     <div class="contentDiv">
