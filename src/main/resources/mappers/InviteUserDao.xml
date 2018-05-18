@@ -9,4 +9,25 @@
        where INVITE_CODE_OF_PROXY is NOT NULL AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
         GROUP BY INVITE_CODE_OF_PROXY
    </select>
+
+    <select id="inviteUser" resultType="com.wf.user.model.InviteUser">
+        SELECT INVITE_CODE as invitedUser,COUNT(1) as num from T_LT_LOTTERYBUYER_OR_EXPERT t
+        where INVITE_CODE is NOT NULL AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0 AND INVITE_CODE != ''
+        GROUP BY INVITE_CODE
+    </select>
+
+    <select id="userNoInvited" resultType="com.wf.user.model.InviteUser">
+        SELECT COUNT(1) as num from T_LT_LOTTERYBUYER_OR_EXPERT t
+        where t.INVITE_CODE is NULL and t.INVITE_CODE_OF_PROXY is NULL AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
+
+    <select id="userCoinIs0" resultType="java.lang.Integer">
+        SELECT COUNT(1) as num from T_LT_LOTTERYBUYER_OR_EXPERT t
+        where t.COLOR_COINS=0 AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
+
+    <select id="userCoinIsNot0" resultType="java.lang.Integer">
+        SELECT COUNT(1) as num from T_LT_LOTTERYBUYER_OR_EXPERT t
+        where t.COLOR_COINS != 0 AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
 </mapper>
