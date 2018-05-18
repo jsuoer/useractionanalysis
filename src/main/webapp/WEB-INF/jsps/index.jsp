@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>奖聊用户行为分析</title>
     <%--<meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Simple Sidebar - Start Bootstrap Template</title>
@@ -59,9 +59,9 @@
                                 <i class="fa fa-flag fa-stack-1x "></i></span>分析数据</a></li>
                     <li><a href="http://www.layui.com/doc/" class="J_menuItem"><span class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>link2</a></li>
-                    <li><a href="http://www.runoob.com/bootstrap/bootstrap-tab-plugin.html" class="J_menuItem"><span
+                    <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem"><span
                             class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i></span>link3</a></li>
+                            <i class="fa fa-flag fa-stack-1x "></i></span>测试</a></li>
                     <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem">
                         <span class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>分析样式demo页</a></li>

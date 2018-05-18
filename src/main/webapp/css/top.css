@@ -3,6 +3,7 @@ body
     width: 100%;
     height: 100%;
     background-color: #f3f3f4;
+    overflow: hidden;
 }
 
 div{
@@ -10,16 +11,18 @@ div{
 }
 
 .topDiv{
-    height: 19%;
+    height: 14%;
     width: 100%;
     /*background: white;*/
 }
 
 .contentDiv{
     margin-top: 1%;
-    height: 80%;
+    height: 85%;
     width: 100%;
     background: white;
+
+    overflow-y: auto;
 }
 
 .title
@@ -27,4 +30,38 @@ div{
     margin-left: 15px;
     font-size: 15px;
     margin-top: 5px;
+    width: 150px;
+    font-weight: bolder;
+}
+.rementDiv{
+    /*width: 150px;*/
+    margin-left: 15px;
+    font-size: 15px;
+    float: left;
+
+}
+
+.conditionDiv{
+    width: 50%;
+    height: 50px;
+    margin-top: 0.5%;
+    line-height: 2;
+    float: left;
+}
+
+.form-group{
+    width: 35%;
+    float: left;
+}
+
+.chartDiv{
+    width: 90%;
+    height:50%;
+}
+
+.tableDiv{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50%;
 }
