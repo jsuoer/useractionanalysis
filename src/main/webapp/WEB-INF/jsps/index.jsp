@@ -39,7 +39,7 @@
                     用户数据分析
                 </a>
                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-                    <li><a href="${pageContext.request.contextPath}/jsp/analysis.jsp" class="J_menuItem">
+                    <li><a href="${pageContext.request.contextPath}/jsp/analysisDemo.jsp" class="J_menuItem">
                             <span class="fa-stack fa-lg pull-left">
                                 <i class="fa fa-users fa-stack-1x "></i></span>用户区域分析</a></li>
                 </ul>

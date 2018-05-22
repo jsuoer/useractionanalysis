@@ -30,6 +30,7 @@
     <script src="${pageContext.request.contextPath}/js/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/layer/layer.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/contabs.js"></script>
+    <script src="${pageContext.request.contextPath}/js/json/china.json"></script>
 
     <!--bootstrap下拉框-->
     <script src="<%=request.getContextPath()%>/js/bootstrap-select.js"></script>
