@@ -28,13 +28,16 @@ public class UserOfAreaImpl implements UserOfArea {
         return userBycity;
     }
 
-    /**
-     * 获取每个省份的所有用户
-     * @return
-     */
+
     @Override
     public List<ProvinceUser> getAllProvinceUser() {
         List<ProvinceUser> userList = userArea.getUserByProvince();
         return userList;
+    }
+
+    @Override
+    public List<CityUser> getCityUsersByProvinceName(String provinceName) {
+        List<CityUser> list = userArea.getCityUsersByProvince(provinceName);
+        return list;
     }
 }

@@ -662,6 +662,9 @@ function initChart() {
                     "name": "黑龙江", "value": 224}];
 
 
+                
+
+
 
                 //获取地区json，，之后向echarts注册
                 echarts.registerMap('中国', geoJson);

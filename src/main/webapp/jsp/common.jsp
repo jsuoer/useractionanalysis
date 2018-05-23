@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: asus
-  Date: 2018/5/17
-  Time: 9:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,7 +17,7 @@
 
 
     <!-- jQuery -->
-    <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+    <%--<script src="${pageContext.request.contextPath}/js/jquery.js"></script>--%>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/js/sidebar_menu.js"></script>
     <script src="${pageContext.request.contextPath}/js/slimscroll/jquery.slimscroll.min.js"></script>

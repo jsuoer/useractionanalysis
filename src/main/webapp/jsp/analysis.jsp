@@ -753,6 +753,11 @@
                             echarts.registerMap(params.name, response);
                             opt.data = [{"name":"沈阳市","value":500}];
                             // 更改opt 里的数据，，为了让option的重新初始化一下地图的数据
+
+
+
+
+
                             handleEvents.resetOption(_self, option, params.name);
                         });
                     }
@@ -791,6 +796,9 @@
                     "name": "七台河市",
                     "value": 1
                 }];
+
+            alert(typeof  dd);
+            console.log(dd);
 
 
 

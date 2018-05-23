@@ -1,6 +1,7 @@
 package com.wf.user.controller;
 
 import com.wf.user.common.JsonUtils;
+import com.wf.user.common.PageResult;
 import com.wf.user.model.CityUser;
 import com.wf.user.model.DateUser;
 import com.wf.user.model.InviteUser;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ import java.util.Map;
 public class UserAreaController {
 
     @Autowired
-    private UserOfArea userOfCity;
+    private UserOfArea UserOfArea;
 
     @Autowired
     private UserOfDate userOfDate;
@@ -36,14 +38,14 @@ public class UserAreaController {
     @ResponseBody
     @RequestMapping("/cityuser")
     public List<CityUser> aa(){
-        List<CityUser> allCityUser = userOfCity.getAllCityUser();
+        List<CityUser> allCityUser = UserOfArea.getAllCityUser();
         return allCityUser;
     }
 
     @ResponseBody
     @RequestMapping(value = "/provinceuser")
     public String ab(){
-        List<ProvinceUser> allUser = userOfCity.getAllProvinceUser();
+        List<ProvinceUser> allUser = UserOfArea.getAllProvinceUser();
         List list = new ArrayList();
         for(ProvinceUser user:allUser){
             Map map = new HashMap();
@@ -54,6 +56,32 @@ public class UserAreaController {
         String objectToJson = JsonUtils.objectToJson(list);
 
         return objectToJson;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/provinceUserInfo")
+    public PageResult abs(){
+        List<ProvinceUser> allProvinceUser = UserOfArea.getAllProvinceUser();
+        double totalNum = 0;
+        for(ProvinceUser user:allProvinceUser){
+            totalNum += (double) user.getNum();
+        }
+        List list = new ArrayList();
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        for(ProvinceUser user:allProvinceUser){
+            Map map = new HashMap();
+            map.put("areaName",user.getProvincename());
+            map.put("num",user.getNum());
+
+            map.put("percent",decimalFormat.format((double) (user.getNum()*100)/totalNum));
+            list.add(map);
+        }
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(list);
+
+        return pageResult;
     }
 
     @ResponseBody
@@ -96,6 +124,46 @@ public class UserAreaController {
     public int ai(){
         int i = inviteUserService.colorCoinIsNot0();
         return i;
+    }
+
+    @ResponseBody
+    @RequestMapping("/cityusersinprovince")
+    public List aia(String provinceName){
+        List<CityUser> users = UserOfArea.getCityUsersByProvinceName(provinceName);
+        List list = new ArrayList();
+        for (CityUser user:users){
+            Map map = new HashMap();
+            map.put("name",user.getCityName());
+            map.put("value",user.getNum());
+            list.add(map);
+        }
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/cityusersTable")
+    public PageResult aaa(String provinceName){
+        List<CityUser> allProvinceUser = UserOfArea.getCityUsersByProvinceName(provinceName);
+        double totalNum = 0;
+        for(CityUser user:allProvinceUser){
+            totalNum += (double) user.getNum();
+        }
+        List list = new ArrayList();
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        for(CityUser user:allProvinceUser){
+            Map map = new HashMap();
+            map.put("areaName",user.getCityName());
+            map.put("num",user.getNum());
+
+            map.put("percent",decimalFormat.format((double) (user.getNum()*100)/totalNum));
+            list.add(map);
+        }
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(list);
+
+        return pageResult;
     }
 
 

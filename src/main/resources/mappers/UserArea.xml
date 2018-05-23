@@ -15,4 +15,12 @@
         WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0 AND t.IS_VIRTUAL=0
         GROUP BY c.Pname
     </select>
+
+    <select id="getCityUsersByProvince" resultType="com.wf.user.model.CityUser" >
+        SELECT c.Cname as cityname,COUNT(1) as num from T_SDF_CITY c
+        join T_LT_LOTTERYBUYER_OR_EXPERT t on c.Ccode = t.CITY_CODE
+        JOIN T_SDF_PROVINCE p ON t.PROVINCE_CODE = p.Pcode
+        where p.Pname=#{provinceName} AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        GROUP BY c.Ccode;
+    </select>
 </mapper>
