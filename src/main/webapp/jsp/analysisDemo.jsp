@@ -55,19 +55,42 @@
         <div class="conditionDiv">
             <span class="rementDiv">区域：</span>
             <select  class="selectpicker show-tick" style="outline: none;width:200px;" data-live-search="true" id="select_article" >
-                <option value="">选择省</option>
-                <option value="1">广东省</option>
-                <option value="2">广西省</option>
-                <option value="3">福建省</option>
-                <option value="4">湖南省</option>
-                <option value="5">山东省</option>
+                <option value="">请选择</option>
+                <option value="安徽省">安徽省</option>
+                <option value="澳门">澳门</option>
+                <option value="北京市">北京市</option>
+                <option value="重庆市">重庆市</option>
+                <option value="福建省">福建省</option>
+                <option value="甘肃省">甘肃省</option>
+                <option value="广东省">广东省</option>
+                <option value="广西壮族自治区">广西壮族自治区</option>
+                <option value="贵州省">贵州省</option>
+                <option value="海南省">海南省</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="河南省">河南省</option>
+                <option value="湖北省">湖北省</option>
+                <option value="河南省">湖南省</option>
+                <option value="江苏省">江苏省</option>
+                <option value="江西省">江西省</option>
+                <option value="吉林省">吉林省</option>
+                <option value="辽宁省">辽宁省</option>
+                <option value="内蒙古自治区">内蒙古自治区</option>
+                <option value="宁夏回族自治区">宁夏回族自治区</option>
+                <option value="青海省">青海省</option>
+                <option value="山东省">山东省</option>
+                <option value="陕西省">陕西省</option>
+                <option value="山西省">山西省</option>
+                <option value="四川省">四川省</option>
+                <option value="天津市">天津市</option>
+                <option value="香港">香港</option>
+                <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                <option value="西藏自治区">西藏自治区</option>
+                <option value="云南省">云南省</option>
+                <option value="浙江省">浙江省</option>
+                <option value="上海市">上海市</option>
+                <option value="河北省">河北省</option>
             </select>
 
-            <select  class="selectpicker show-tick" style="outline: none;width:200px;" data-live-search="true" id="select_article2" >
-                <option value="">选择市</option>
-                <option value="1">沈阳市</option>
-                <option value="2">大连市</option>
-            </select>
         </div>
 
 
@@ -114,25 +137,84 @@
     <%--<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>--%>
     <script type="text/javascript">
         $(function () {
+
+            // 时间控件的 change 事件
+            $('#datetimepickerVal2').change(function () {
+                // string 类型
+                var startDate = $('#datetimepickerVal1').val();
+                var endDate = $('#datetimepickerVal2').val();
+                var provinceName = $('#select_article').val();  //string
+                if (startDate != "" && endDate != "" && provinceName != ""){
+                    if ( Date.parse(startDate)-Date.parse(endDate) < 0){
+                        $('#table1').bootstrapTable('refresh',
+                            {url: '<%=request.getContextPath()%>/cusertimeprov?provinceName=' +
+                                provinceName + '&startDate='+startDate+'&endDate='+endDate});
+                    }
+                }
+                if (startDate != "" && endDate != "" && provinceName == ""){
+                    if ( Date.parse(startDate)-Date.parse(endDate) < 0){
+                        $('#table1').bootstrapTable('refresh',
+                            {url: '${pageContext.request.contextPath}/userpbetweendate?startDate='+startDate+'&endDate='+endDate});
+
+                    }
+                }
+            })
+
+
+
+            // 下拉框的change事件。。。。
+            $("#select_article").on('changed.bs.select',function(){
+                var startDate = $('#datetimepickerVal1').val();
+                var endDate = $('#datetimepickerVal2').val();
+                var provinceName = $('#select_article').val();  //string
+                //如果时间段是null，，查询所有的用户
+                if(startDate == "" && endDate == "") {
+                    var targetProvince = $("#select_article").selectpicker('val');
+                    $('#table1').bootstrapTable('refresh', {url: '<%=request.getContextPath()%>/cityusersTable?provinceName=' + targetProvince});
+                }
+
+                if (startDate != "" && endDate != "" && provinceName != ""){
+                    if ( Date.parse(startDate)-Date.parse(endDate) < 0){
+                        $('#table1').bootstrapTable('refresh',
+                            {url: '<%=request.getContextPath()%>/cusertimeprov?provinceName=' +
+                                provinceName + '&startDate='+startDate+'&endDate='+endDate});
+                    }
+                }
+            })
+
+
+
+
+
             $("[data-toggle='popover']").popover();
 
             $('#datetimepicker1').datetimepicker({
+                language:  "zh-CN",
+                weekStart: 1,
+                todayBtn:  1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1,
                 format: 'yyyy-mm-dd',
                 autoclose: true,
-
-                language: 'zh-CN',
                 minView: "month", //选择日期后，不会再跳转去选择时分秒
-                val:new Date()
             }).on("click",function(){
                 var endVal = $("#datetimepickerVal2").val();
                 $("#datetimepicker1").datetimepicker("setEndDate",endVal);
             });
+
             $('#datetimepicker2').datetimepicker({
+                language:  "zh-CN",
+                weekStart: 1,
+                todayBtn:  1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0,
+                showMeridian: 1,
                 format: 'yyyy-mm-dd',
                 autoclose: true,
-                language: 'zh-CN',
                 minView: "month", //选择日期后，不会再跳转去选择时分秒
-                // startDate:new Date()
             }).on("click",function(){
                 var startVal = $("#datetimepickerVal1").val();
                 $("#datetimepicker2").datetimepicker("setStartDate",startVal);
@@ -159,7 +241,7 @@
             // // 基于准备好的dom，初始化echarts实例
             // var myChart = echarts.init(document.getElementById('main'));
             var anhui = "../js/json/anhui.json";
-            var china = "../js/json/china.json";
+            // var china = "../js/json/china.json";
             var china = "../js/json/china.json";
             var aomen = "../js/json/aomen.json";
             var beijing = "../js/json/beijing.json";
@@ -805,6 +887,9 @@
 
             //  获取中国地图json
             $.getJSON(china, function(geoJson){
+
+
+
                 //获取地区json，，之后向echarts注册
                 echarts.registerMap('中国', geoJson);
                 // chart-panel 是一个div的id名
@@ -869,7 +954,6 @@
                     }
                 ],
                 onLoadSuccess: function(data){  //加载成功时执行
-                    console.log(data);
                     console.info("加载成功");
                 },
                 onLoadError: function(){  //加载失败时执行
