@@ -10,6 +10,10 @@ public interface UserArea {
 
     List<CityUser> getUserBycity();
 
+    /**
+     * 获取所有省份的用户信息
+     * @return
+     */
     List<ProvinceUser> getUserByProvince();
 
     /**

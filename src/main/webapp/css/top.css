@@ -11,14 +11,14 @@ div{
 }
 
 .topDiv{
-    height: 14%;
+    /*height: 15%;*/
     width: 100%;
     /*background: white;*/
 }
 
 .contentDiv{
     margin-top: 1%;
-    height: 85%;
+    height: 100%;
     width: 100%;
     background: white;
 
@@ -61,7 +61,6 @@ div{
 
 .tableDiv{
     width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     height: 50%;
 }

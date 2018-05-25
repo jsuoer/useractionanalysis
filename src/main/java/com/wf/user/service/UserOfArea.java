@@ -1,5 +1,6 @@
 package com.wf.user.service;
 
+import com.wf.user.common.PageResult;
 import com.wf.user.model.CityUser;
 import com.wf.user.model.ProvinceUser;
 
@@ -13,6 +14,8 @@ public interface UserOfArea {
      * 获取每个省份的所有用户
      * @return
      */
+    PageResult getAllProvinceUserPage(int pageSize, int offset);
+
     List<ProvinceUser> getAllProvinceUser();
 
     /**

@@ -2,6 +2,7 @@ package com.wf.user.controller;
 
 import com.wf.user.common.PageResult;
 import com.wf.user.model.CityUser;
+import com.wf.user.model.DateUser;
 import com.wf.user.model.ProvinceUser;
 import com.wf.user.service.UserOfDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +76,67 @@ public class UserDateController {
         pageResult.setRows(list);
         return pageResult;
     }
+
+    @ResponseBody
+    @RequestMapping("/last10daynum")
+    public List<DateUser> ss(){
+        List<DateUser> list = userOfDate.getLast10Dayregister();
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/last10daynum2")
+    public PageResult sls(int offset,int limit){
+        PageResult pageResult = userOfDate.getLast10Dayregister2(limit, offset);
+        return pageResult;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/userbytime")
+    public List<DateUser> sss(String startDate, String endDate){
+        List<DateUser> list = userOfDate.getUserByTime(startDate, endDate);
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userbytimep")
+    public PageResult sds(String startDate, String endDate, int offset, int limit){
+        PageResult user = userOfDate.getUserByTimep(startDate, endDate, limit, offset);
+        return user;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/userbytimeprovince")
+    public List<DateUser> ssss(String startDate, String endDate,String provinceName){
+        List<DateUser> list = userOfDate.getUserByTimeProvince(startDate, endDate, provinceName);
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userbytimeprovincep")
+    public PageResult ssrss(String startDate, String endDate, String provinceName, int limit, int offset){
+        PageResult result = userOfDate.getUserByTimeProvincep(startDate, endDate, provinceName, limit, offset);
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userbytimepandc")
+    public List<DateUser> ssvs(String startDate, String endDate,String provinceName,String cityName){
+        List<DateUser> list = userOfDate.getUserByTimeProvinceCity(startDate, endDate, provinceName, cityName);
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userbytimepandcp")
+    public PageResult sssvs(String startDate, String endDate, String provinceName, String cityName, int limit, int offset){
+        PageResult result = userOfDate.getUserByTimeProvinceCityp(startDate, endDate, provinceName, cityName, limit, offset);
+        return result;
+    }
+
+
+
+
+
 }

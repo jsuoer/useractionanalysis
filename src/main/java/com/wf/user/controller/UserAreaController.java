@@ -12,13 +12,12 @@ import com.wf.user.service.UserOfDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 用户区域管理
@@ -60,34 +59,20 @@ public class UserAreaController {
 
     @ResponseBody
     @RequestMapping(value = "/provinceUserInfo")
-    public PageResult abs(){
-        List<ProvinceUser> allProvinceUser = UserOfArea.getAllProvinceUser();
-        double totalNum = 0;
-        for(ProvinceUser user:allProvinceUser){
-            totalNum += (double) user.getNum();
-        }
-        List list = new ArrayList();
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        for(ProvinceUser user:allProvinceUser){
-            Map map = new HashMap();
-            map.put("areaName",user.getProvincename());
-            map.put("num",user.getNum());
+    public PageResult abs(@RequestParam(name = "limit",defaultValue = "5") int limit,
+                          @RequestParam(name = "offset",defaultValue = "0") int offset){
+        PageResult page = UserOfArea.getAllProvinceUserPage(limit, offset);
 
-            map.put("percent",decimalFormat.format((double) (user.getNum()*100)/totalNum));
-            list.add(map);
-        }
 
-        PageResult pageResult = new PageResult();
-        pageResult.setTotal(list.size());
-        pageResult.setRows(list);
-
-        return pageResult;
+        return page;
     }
 
     @ResponseBody
-    @RequestMapping("/dateuser")
+    @RequestMapping("/last10dayuser")
     public List<DateUser> ad(){
         List<DateUser> users = userOfDate.getLast10Dayregister();
+
+
         return users;
     }
 

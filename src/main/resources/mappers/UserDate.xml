@@ -4,14 +4,14 @@
     <select id="last10DayRegisterUser" resultType="com.wf.user.model.DateUser">
         SELECT DATE_FORMAT(CREATE_TIME,"%Y-%m-%d") as date,COUNT(1) as num from T_LT_LOTTERYBUYER_OR_EXPERT t
         WHERE DATE_SUB(CURDATE(),INTERVAL 10 DAY) &lt;= DATE(CREATE_TIME) AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
-        GROUP BY DATE(CREATE_TIME)
+        GROUP BY DATE(CREATE_TIME) ORDER BY DATE(CREATE_TIME) desc
     </select>
     <select id="getProvinceUserBetweenDate" resultType="com.wf.user.model.ProvinceUser">
         SELECT c.Pname AS provincename,COUNT(1) AS num
         FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE c ON t.PROVINCE_CODE=c.Pcode
         WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0 AND t.IS_VIRTUAL=0
         AND DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') BETWEEN #{startDate} and #{endDate}
-        GROUP BY c.Pname;
+        GROUP BY c.Pname
 
 
     </select>
@@ -21,7 +21,30 @@
         JOIN T_SDF_CITY c on t.CITY_CODE = c.Ccode
         WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0 AND t.IS_VIRTUAL=0 and p.Pname=#{provinceName}
         AND DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
-        GROUP BY c.Cname;
+        GROUP BY c.Cname
 
     </select>
+
+    <select id="userByTime" resultType="com.wf.user.model.DateUser">
+        SELECT DATE_FORMAT(CREATE_TIME,"%Y-%m-%d") as date,COUNT(1) as num
+        from T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE DATE(CREATE_TIME) BETWEEN #{startDate} AND #{endDate} AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        GROUP BY DATE(CREATE_TIME) ORDER BY DATE(CREATE_TIME) asc
+    </select>
+    <select id="userByTimeProvince" resultType="com.wf.user.model.DateUser">
+        SELECT DATE_FORMAT(t.CREATE_TIME,"%Y-%m-%d") as date,COUNT(1) as num
+    from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p on t.PROVINCE_CODE = p.Pcode
+    WHERE p.Pname=#{provinceName} AND DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate} AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    GROUP BY DATE(t.CREATE_TIME) ORDER BY DATE(t.CREATE_TIME) ASC
+    </select>
+    <select id="userByTimeProvinceCity" resultType="com.wf.user.model.DateUser">
+        SELECT DATE_FORMAT(t.CREATE_TIME,"%Y-%m-%d") as date,COUNT(1) as num
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p on t.PROVINCE_CODE = p.Pcode
+        JOIN T_SDF_CITY c ON t.CITY_CODE=c.Ccode
+        WHERE p.Pname=#{provinceName} AND DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0 AND c.Cname=#{cityName}
+        GROUP BY DATE(t.CREATE_TIME) ORDER BY DATE(t.CREATE_TIME) ASC
+    </select>
+
+
 </mapper>

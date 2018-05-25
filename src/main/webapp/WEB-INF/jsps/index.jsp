@@ -42,6 +42,9 @@
                     <li><a href="${pageContext.request.contextPath}/jsp/analysisDemo.jsp" class="J_menuItem">
                             <span class="fa-stack fa-lg pull-left">
                                 <i class="fa fa-users fa-stack-1x "></i></span>用户区域分析</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/last10dayregisteruser.jsp" class="J_menuItem">
+                            <span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>用户近十日注册状况</a></li>
                 </ul>
             </li>
 
