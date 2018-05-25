@@ -19,6 +19,17 @@
 
     <title>地域分析</title>
 
+
+    <style>
+        .chartDiv{
+            height: 65%;
+        }
+        .tableDiv{
+            height: 35%;
+        }
+
+    </style>
+
 </head>
 <body>
     <div class="topDiv" >
