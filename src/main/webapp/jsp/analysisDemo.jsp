@@ -25,6 +25,17 @@
         }
     </style>
 
+
+    <style>
+        .chartDiv{
+            height: 65%;
+        }
+        .tableDiv{
+            height: 35%;
+        }
+
+    </style>
+
 </head>
 <body>
     <div class="topDiv" >
