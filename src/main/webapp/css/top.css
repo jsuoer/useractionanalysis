@@ -25,6 +25,16 @@ div{
     overflow-y: auto;
 }
 
+.optionitems{
+    height: 400px;
+    overflow: scroll;
+}
+
+.btstp_table{
+    height: 80%;
+    overflow: scroll;
+}
+
 .title
 {
     margin-left: 15px;

@@ -367,122 +367,111 @@
                                     {url: '<%=request.getContextPath()%>/userratefort?startDate='+startDate+'&endDate='+endDate});
                             }
                         })
-                    }else if (cityName != ""){
-                        //查询全国的具体时间段 某个城市 的增长比例
-                        $.ajax({
-                            url:'${pageContext.request.contextPath}/usersinbatchdaysinc?startDate='+startDate+'&endDate='+endDate
-                            +'&cityName='+cityName,
-                            dataType:'json',
-                            async: false,
-                            processType:true,
-                            success: function(data) {
-                                xAxis_data = [];
-                                yAxis_data = [];
+                    }else {
+                        if (cityName != ""){
+                            //查询全国的具体时间段 某个城市 的增长比例
+                            $.ajax({
+                                url:'${pageContext.request.contextPath}/usersinbatchdaysinc?startDate='+startDate+'&endDate='+endDate
+                                +'&cityName='+cityName,
+                                dataType:'json',
+                                async: false,
+                                processType:true,
+                                success: function(data) {
+                                    xAxis_data = [];
+                                    yAxis_data = [];
 
-                                for (var i=0,l=data.length; i<l; i++){
-                                    for (var ss in data[i]){
-                                        xAxis_data.push(ss);
-                                        yAxis_data.push(data[i][ss]);
+                                    for (var i=0,l=data.length; i<l; i++){
+                                        for (var ss in data[i]){
+                                            xAxis_data.push(ss);
+                                            yAxis_data.push(data[i][ss]);
+                                        }
                                     }
+                                    option.xAxis[0].data = xAxis_data;
+                                    option.series[0].data = yAxis_data;
+                                    option.title.text = cityName+'用户在'+startDate+'之后到'+endDate+'的增长比例';
+                                    initChart();
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/userrateincfort?startDate='+startDate+'&endDate='+endDate+
+                                            '&cityName='+cityName});
                                 }
-                                option.xAxis[0].data = xAxis_data;
-                                option.series[0].data = yAxis_data;
-                                option.title.text = cityName+'用户在'+startDate+'之后到'+endDate+'的增长比例';
-                                initChart();
-                                $('#table1').bootstrapTable('refresh',
-                                    {url: '<%=request.getContextPath()%>/userrateincfort?startDate='+startDate+'&endDate='+endDate+
-                                    '&cityName='+cityName});
-                            }
-                        })
+                            })
 
-                    } else {
-                        //查询全国的具体时间段 某个省 的增长比例
-                        $.ajax({
-                            url:'${pageContext.request.contextPath}/usersinbatchdaysinp?startDate='+startDate+'&endDate='+endDate
-                            +'&provinceName='+provinceName,
-                            dataType:'json',
-                            async: false,
-                            processType:true,
-                            success: function(data) {
-                                xAxis_data = [];
-                                yAxis_data = [];
+                        } else {
+                            //查询全国的具体时间段 某个省 的增长比例
+                            $.ajax({
+                                url:'${pageContext.request.contextPath}/usersinbatchdaysinp?startDate='+startDate+'&endDate='+endDate
+                                +'&provinceName='+provinceName,
+                                dataType:'json',
+                                async: false,
+                                processType:true,
+                                success: function(data) {
+                                    xAxis_data = [];
+                                    yAxis_data = [];
 
-                                for (var i=0,l=data.length; i<l; i++){
-                                    for (var ss in data[i]){
-                                        xAxis_data.push(ss);
-                                        yAxis_data.push(data[i][ss]);
+                                    for (var i=0,l=data.length; i<l; i++){
+                                        for (var ss in data[i]){
+                                            xAxis_data.push(ss);
+                                            yAxis_data.push(data[i][ss]);
+                                        }
                                     }
-                                }
-                                option.xAxis[0].data = xAxis_data;
-                                option.series[0].data = yAxis_data;
-                                option.title.text = provinceName+'用户在'+startDate+'之后到'+endDate+'的增长比例';
+                                    option.xAxis[0].data = xAxis_data;
+                                    option.series[0].data = yAxis_data;
+                                    option.title.text = provinceName+'用户在'+startDate+'之后到'+endDate+'的增长比例';
 
-                                initChart();
-                                $('#table1').bootstrapTable('refresh',
-                                    {url: '<%=request.getContextPath()%>/userrateinpfort?startDate='+startDate+'&endDate='+endDate+
-                                        '&provinceName='+provinceName});
-                            }
-                        })
+                                    initChart();
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/userrateinpfort?startDate='+startDate+'&endDate='+endDate+
+                                            '&provinceName='+provinceName});
+                                }
+                            })
+                        }
                     }
                 }else {
                     alert("请选择正确的时间范围")
                 }
             }else {
                 if (provinceName == '') {
-                    //查询全国的具体日期的增长比例
-                    $.ajax({
-                        url:'${pageContext.request.contextPath}/growthrate?date='+startDate,
-                        dataType:'json',
-                        async: false,
-                        processType:true,
-                        success: function(data) {
-                            xAxis_data = [];
-                            yAxis_data = [];
-                            xAxis_data.push(startDate);
-                            yAxis_data.push(data);
-                            option.xAxis[0].data = xAxis_data;
-                            option.series[0].data = yAxis_data;
-                            option.title.text = '全国用户'+startDate+'增长比例';
-                            initChart();
-                        }
-                    })
-                } else if (cityName == '') {
-                    //查询某个省的具体日期的增长比例
-                    $.ajax({
-                        url:'${pageContext.request.contextPath}/growthrateinp?date='+startDate+'&provinceName='+provinceName,
-                        dataType:'json',
-                        async: false,
-                        processType:true,
-                        success: function(data) {
-                            xAxis_data = [];
-                            yAxis_data = [];
-                            xAxis_data.push(startDate);
-                            yAxis_data.push(data);
-                            option.xAxis[0].data = xAxis_data;
-                            option.series[0].data = yAxis_data;
-                            option.title.text = provinceName+startDate+'增长比例';
-                            initChart();
-                        }
-                    })
-
+                   //没有查询条件
+                    alert('请选择查询条件')
                 } else {
-                    //查找某个省市增长比例
-                    $.ajax({
-                        url:'${pageContext.request.contextPath}/growthrateinc?date='+startDate+'&cityName='+cityName,
-                        dataType:'json',
-                        async: false,
-                        processType:true,
-                        success: function(data) {
-                            xAxis_data = [];
-                            yAxis_data = [];
-                            xAxis_data.push(startDate);
-                            yAxis_data.push(data);
-                            option.xAxis[0].data = xAxis_data;
-                            option.series[0].data = yAxis_data;
-                            option.title.text = provinceName+cityName+startDate+'增长比例';
-                            initChart();
-                        }
-                    })
+                    if (cityName == '') {
+                        //查询某个省的具体日期的增长比例
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/growthrateinp?date='+ss+'&provinceName='+provinceName,
+                            dataType:'json',
+                            async: false,
+                            processType:true,
+                            success: function(data) {
+                                xAxis_data = [];
+                                yAxis_data = [];
+                                xAxis_data.push(ss);
+                                yAxis_data.push(data);
+                                option.xAxis[0].data = xAxis_data;
+                                option.series[0].data = yAxis_data;
+                                option.title.text = provinceName+ss+'增长比例';
+                                initChart();
+                            }
+                        })
+
+                    } else {
+                        //查找某个 市 增长比例
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/growthrateinc?date='+ss+'&cityName='+cityName,
+                            dataType:'json',
+                            async: false,
+                            processType:true,
+                            success: function(data) {
+                                xAxis_data = [];
+                                yAxis_data = [];
+                                xAxis_data.push(ss);
+                                yAxis_data.push(data);
+                                option.xAxis[0].data = xAxis_data;
+                                option.series[0].data = yAxis_data;
+                                option.title.text = provinceName+cityName+ss+'增长比例';
+                                initChart();
+                            }
+                        })
+                    }
                 }
             }
         })

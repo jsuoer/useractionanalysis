@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.UserFromMapper">
+    <select id="userProxy" resultType="java.lang.Integer">
+      SELECT COUNT(1)
+        FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE t.INVITE_CODE_OF_PROXY is NOT NULL
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
+    <select id="userStationOwner" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE t.INVITE_CODE is NOT NULL
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
+    <select id="userSelf" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE t.INVITE_CODE is NULL AND t.INVITE_CODE_OF_PROXY is NULL
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </select>
+    <select id="userProxyDur" resultType="java.lang.Integer">
+        SELECT count(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE_OF_PROXY is not NULL
+    </select>
+    <select id="userStationOwnerDur" resultType="java.lang.Integer">
+         SELECT count(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE is not NULL
+    </select>
+    <select id="userSelfDur" resultType="java.lang.Integer">
+        SELECT count(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE is NULL AND t.INVITE_CODE_OF_PROXY is NULL
+    </select>
+    <select id="userProxyDurinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+        on p.Pcode=t.PROVINCE_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE_OF_PROXY is not NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userStationOwnerDurinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+        on p.Pcode=t.PROVINCE_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE is not NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userSelfDurinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+        on p.Pcode=t.PROVINCE_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE is  NULL and t.INVITE_CODE_OF_PROXY is NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userProxyDurinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+        on c.Ccode=t.CITY_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE_OF_PROXY is NOT NULL  AND c.Cname=#{cityName}
+    </select>
+    <select id="userStationOwnerDurinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+        on c.Ccode=t.CITY_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE is NOT NULL  AND c.Cname=#{cityName}
+    </select>
+    <select id="userSelfDurinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+        on c.Ccode=t.CITY_CODE
+        WHERE DATE(t.CREATE_TIME) BETWEEN #{startDate} AND #{endDate}
+        AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND t.INVITE_CODE_OF_PROXY is NULL and t.INVITE_CODE is NULL  AND c.Cname=#{cityName}
+    </select>
+    <select id="userProxyinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+on p.Pcode=t.PROVINCE_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE_OF_PROXY is NOT NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userStationOwnerinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+on p.Pcode=t.PROVINCE_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE is NOT NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userSelfinp" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+on p.Pcode=t.PROVINCE_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE_OF_PROXY is NULL and t.INVITE_CODE is NULL AND p.Pname=#{provinceName}
+    </select>
+    <select id="userProxyinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+on c.Ccode = t.CITY_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE_OF_PROXY is not NULL  AND c.Cname=#{cityName}
+    </select>
+    <select id="userStationOwnerinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+on c.Ccode = t.CITY_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE is not NULL  AND c.Cname=#{cityName}
+    </select>
+    <select id="userSelfinc" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        from T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+on c.Ccode = t.CITY_CODE
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+AND t.INVITE_CODE_OF_PROXY is  NULL  and t.INVITE_CODE is null  AND c.Cname=#{cityName}
+    </select>
+</mapper>
