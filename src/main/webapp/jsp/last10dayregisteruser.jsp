@@ -16,6 +16,21 @@
     <link href="${pageContext.request.contextPath}/css/top.css" rel="stylesheet" />
 
     <title>近十日注册分析</title>
+
+    <style type="text/css">
+        .optionitems{
+            height: 400px;
+            overflow: scroll;
+        }
+
+        .btstp_table{
+            height: 80%;
+            overflow: scroll;
+        }
+
+
+
+    </style>
 </head>
 <body>
     <div class="topDiv" >
@@ -119,19 +134,14 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap-table.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"></script>
-    <script src="${pageContext.request.contextPath}/js/sidebar_menu.js"></script>
-    <script src="${pageContext.request.contextPath}/js/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/layer/layer.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/contabs.js"></script>
-    <script src="${pageContext.request.contextPath}/js/json/china.json"></script>
-    <!--bootstrap下拉框-->
     <script src="<%=request.getContextPath()%>/js/bootstrap-select.js"></script>
-    <!--bootstrap时间控件-->
     <script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/echarts.js"></script>
     <script type="text/javascript">
         $(function () {
+
+
 
             $('#selectBtn').on('click',function () {
                 var startDate = $('#datetimepickerVal1').val();
@@ -239,41 +249,17 @@
                 }
             })
 
-            var cityMap = {
-                "安徽省":['芜湖市','合肥市','六安市','宿州市','阜阳市','安庆市','马鞍山市','蚌埠市','淮北市','淮南市','宣城市','黄山市','铜陵市','亳州市','池州市','巢湖市','滁州市'],
-                "澳门":[],
-                "北京市":[],
-                "重庆市":[],
-                "福建省":['漳州市','泉州市','厦门市','福州市','莆田市','宁德市','三明市','南平市','龙岩市'],
-                "甘肃省":['兰州市','天水市','庆阳市','武威市','酒泉市','张掖市','陇南地区','白银市','定西地区','平凉市','嘉峪关市','临夏回族自治州','金昌市','甘南州'],
-                "广东省":['东莞市','广州市','中山市','深圳市','惠州市','江门市','珠海市','汕头市','佛山市','湛江市','河源市','肇庆市','潮州市','清远市','韶关市','揭阳市','阳江市','云浮市','茂名市','梅州市','汕尾市'],
-                "广西壮族自治区":['贵港市','玉林市','北海市','南宁市','柳州市','桂林市','梧州市','钦州市','来宾市','河池市','百色市','贺州市','崇左市','防城港市'],
-                "贵州省":['贵阳市','黔东南州','黔南州','遵义市','黔西南州','毕节地区','铜仁地区','安顺市','六盘水市'],
-                "海南省":['三亚市','海口市','琼海市','文昌市','东方市','昌江县','陵水县','乐东县','五指山市','保亭县','澄迈县','万宁市','儋州市','临高县','白沙县','定安县','琼中县','屯昌县'],
-                "黑龙江":['齐齐哈尔市','哈尔滨市','大庆市','佳木斯市','双鸭山市','牡丹江市','鸡西市','黑河市','绥化市','鹤岗市','伊春市','大兴安岭地区','七台河市'],
-                "河南省":['郑州市','南阳市','新乡市','安阳市','洛阳市','信阳市','平顶山市','周口市','商丘市','开封市','焦作市','驻马店市','濮阳市','三门峡市','漯河市','许昌市','鹤壁市','济源市'],
-                "湖北省":['武汉市','宜昌市','襄樊市','荆州市','恩施州','孝感市','黄冈市','十堰市','咸宁市','黄石市','仙桃市','随州市','天门市','荆门市','潜江市','鄂州市','神农架林区'],
-                "湖南省":['长沙市','邵阳市','常德市','衡阳市','株洲市','湘潭市','永州市','岳阳市','怀化市','郴州市','娄底市','益阳市','张家界市','湘西州'],
-                "江苏省":['苏州市','徐州市','盐城市','无锡市','南京市','南通市','连云港市','常州市','扬州市','镇江市','淮安市','泰州市','宿迁市'],
-                "江西省":['南昌市','赣州市','上饶市','吉安市','九江市','新余市','抚州市','宜春市','景德镇市','萍乡市','鹰潭市'],
-                "吉林省":['吉林市','长春市','白山市','白城市','延边州','松原市','辽源市','通化市','四平市'],
-                "辽宁省":['大连市','沈阳市','丹东市','辽阳市','葫芦岛市','锦州市','朝阳市','营口市','鞍山市','抚顺市','阜新市','本溪市','盘锦市','铁岭市'],
-                "内蒙古自治区":['赤峰市','包头市','通辽市','呼和浩特市','乌海市','鄂尔多斯市','呼伦贝尔市','兴安盟','巴彦淖尔盟','乌兰察布盟','锡林郭勒盟','阿拉善盟'],
-                "宁夏回族自治区":['银川市','吴忠市','中卫市','石嘴山市','固原市'],
-                "青海省":['西宁市','海西州','海东地区','海北州','果洛州','玉树州','黄南藏族自治州'],
-                "山东省":['济南市','青岛市','临沂市','济宁市','菏泽市','烟台市','泰安市','淄博市','潍坊市','日照市','威海市','滨州市','东营市','聊城市','德州市','莱芜市','枣庄市'],
-                "陕西省":['西安市','咸阳市','宝鸡市','汉中市','渭南市','安康市','榆林市','商洛市','延安市','铜川市'],
-                "山西省":['太原市','大同市','运城市','长治市','晋城市','忻州市','临汾市','吕梁市','晋中市','阳泉市','朔州市'],
-                "四川省":['成都市','绵阳市','广元市','达州市','南充市','德阳市','广安市','阿坝州','巴中市','遂宁市','内江市','凉山州','攀枝花市','乐山市','自贡市','泸州市','雅安市','宜宾市','资阳市','眉山市','甘孜州'],
-                "天津市":[],
-                "香港":[],
-                "新疆维吾尔自治区":['乌鲁木齐市','伊犁州','昌吉州','石河子市','哈密地区','阿克苏地区','巴音郭楞州','喀什地区','塔城地区','克拉玛依市','和田地区','阿勒泰州','吐鲁番地区','阿拉尔市','博尔塔拉州','五家渠市','克孜勒苏州','图木舒克市'],
-                "西藏自治区":['拉萨市','山南地区','林芝地区','日喀则地区','阿里地区','昌都地区','那曲地区'],
-                "云南省":['昆明市','红河州','大理州','文山州','德宏州','曲靖市','昭通市','楚雄州','保山市','玉溪市','丽江地区','临沧地区','思茅地区','西双版纳州','怒江州','迪庆州'],
-                "浙江省":['温州市','宁波市','杭州市','台州市','嘉兴市','金华市','湖州市','绍兴市','舟山市','丽水市','衢州市'],
-                "上海市":[],
-                "河北省":['石家庄市','唐山市','保定市','邯郸市','邢台市','河北区','沧州市','秦皇岛市','张家口市','衡水市','廊坊市','承德市']
-            };
+
+            var cityMap ;
+            $.ajax({
+                url:'${pageContext.request.contextPath}/js/provinceCity.json',
+                dataType:'json',
+                async: false,
+                processType:true,
+                success: function(data) {
+                    cityMap = data;
+                }
+            })
 
             $("#select_article").on('changed.bs.select',function(){
                 var pValue = cityMap[this.value];
@@ -329,6 +315,10 @@
             initTable();
 
             initChart();
+
+            $('ul[role="listbox"]').addClass('optionitems');
+            $('.bootstrap-table').addClass('btstp_table');
+
         })
 
         var xAxis_data = [];
@@ -349,42 +339,141 @@
 
         // echart 的 option
         option = {
+            backgroundColor: "#344b58",
             title: {
-                text:title
+                text: title,
+                // x: "4%",
+
+                textStyle: {
+                    color: '#fff',
+                    fontSize: '22'
+                }
             },
-            xAxis: {
-                type: 'category',
-                name:'日期',
-                nameGap:30,
-                boundaryGap: ['20%', '20%'],
-                // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                data: xAxis_data
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "line",
+                    textStyle: {
+                        color: "#fff"
+                    }
+
+                },
             },
-            yAxis: {
-                type: 'value',
-                minInterval: 1
+            grid: {
+                borderWidth: 0,
+                top: 110,
+                bottom: 95,
+                textStyle: {
+                    color: "#fff"
+                }
             },
-            series: [{
-                data: yAxis_data,
-                type: 'line',
-                symbol: 'triangle',
-                symbolSize: 20,
-                lineStyle: {
-                    normal: {
-                        color: 'green',
-                        width: 4,
-                        type: 'dashed'
+            legend: {
+                x: '4%',
+                top: '11%',
+                textStyle: {
+                    color: '#90979c',
+                }
+            },
+
+
+            // calculable: true,
+            xAxis: [{
+                type: "category",
+                axisLine: {
+                    lineStyle: {
+                        color: '#90979c'
                     }
                 },
-                itemStyle: {
-                    normal: {
-                        borderWidth: 3,
-                        borderColor: 'yellow',
-                        color: 'blue'
+                "splitLine": {
+                    "show": false
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "splitArea": {
+                    "show": false
+                },
+                "axisLabel": {
+                    "interval": 0,
+
+                },
+                data: xAxis_data,
+            }],
+            "yAxis": [{
+                "type": "value",
+                minInterval: 1,
+                "splitLine": {
+                    "show": false
+                },
+                "axisLine": {
+                    lineStyle: {
+                        color: '#90979c'
                     }
-                }
-            }]
-        };
+                },
+                "axisTick": {
+                    "show": false
+                },
+                "axisLabel": {
+                    "interval": 0,
+
+                },
+                "splitArea": {
+                    "show": false
+                },
+
+            }],
+            "dataZoom": [{
+                "show": true,
+                "height": 20,
+                "xAxisIndex": [
+                    0
+                ],
+                bottom: 30,
+                "start": 10,
+                "end": 80,
+
+                handleStyle:{
+                    color:"#d3dee5"
+
+                },
+                textStyle:{
+                    color:"#fff"},
+                borderColor:"#90979c"
+
+
+            }, {
+                "type": "inside",
+                "show": true,
+                "height": 15,
+                "start": 1,
+                "end": 35
+            }],
+            series: [
+
+                {
+                    "name": "总数",
+                    "type": "line",
+                    "stack": "总量",
+                    symbolSize:10,
+                    symbol:'circle',
+                    "itemStyle": {
+                        "normal": {
+                            "color": "rgba(252,230,48,1)",
+                            "barBorderRadius": 0,
+                            "label": {
+                                "show": true,
+                                "position": "top",
+                                formatter: function(p) {
+                                    return p.value > 0 ? (p.value) : '';
+                                }
+                            }
+                        }
+                    },
+                    data: yAxis_data
+                },
+            ]
+        }
+
 
         function initChart() {
             var myChart = echarts.init(document.getElementById('main'));
@@ -432,11 +521,8 @@
                     }
                 ],
                 onLoadSuccess: function(data){  //加载成功时执行
-                    console.log(data);
-                    console.info("加载成功");
                 },
                 onLoadError: function(){  //加载失败时执行
-                    console.info("加载数据失败");
                 }
 
             });

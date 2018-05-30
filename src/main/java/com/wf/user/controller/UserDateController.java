@@ -1,5 +1,6 @@
 package com.wf.user.controller;
 
+import com.wf.user.common.DateUtils;
 import com.wf.user.common.PageResult;
 import com.wf.user.model.CityUser;
 import com.wf.user.model.DateUser;
@@ -21,6 +22,94 @@ public class UserDateController {
 
     @Autowired
     private UserOfDate userOfDate;
+
+    @ResponseBody
+    @RequestMapping("/usersinbatchdays")
+    public List rateb(String startDate, String endDate){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List rate = userOfDate.getUserBacthDays(everyDay);
+        return  rate;
+    }
+
+    private PageResult listmapToPageResult(List<Map> list){
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        List rowList = new ArrayList<>();
+        for (int i=0; i<list.size(); i++){
+            Map map = list.get(i);
+            Map map1 = new HashMap();
+            for(Object key:map.keySet()){
+                map1.put("date",key);
+                map1.put("num",map.get(key));
+            }
+            rowList.add(map1);
+        }
+        pageResult.setRows(rowList);
+        return pageResult;
+    }
+
+    @ResponseBody
+    @RequestMapping("/userrateinpfort")
+    public PageResult rss(String startDate, String endDate,String provinceName){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List rate = userOfDate.getUserBacthDaysinp(everyDay,provinceName);
+        return  listmapToPageResult(rate);
+    }
+
+    @ResponseBody
+    @RequestMapping("/userrateincfort")
+    public PageResult rate1bs(String startDate, String endDate,String cityName){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List rate = userOfDate.getUserBacthDaysinc(everyDay,cityName);
+        return  listmapToPageResult(rate);
+    }
+
+    @ResponseBody
+    @RequestMapping("/userratefort")
+    public PageResult rate1b(String startDate, String endDate){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List<Map> rate = userOfDate.getUserBacthDays(everyDay);
+        return  listmapToPageResult(rate);
+    }
+
+    @ResponseBody
+    @RequestMapping("/usersinbatchdaysinp")
+    public List ratesb(String startDate, String endDate,String provinceName){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List rate = userOfDate.getUserBacthDaysinp(everyDay,provinceName);
+        return  rate;
+    }
+
+    @ResponseBody
+    @RequestMapping("/usersinbatchdaysinc")
+    public List ratesb1(String startDate, String endDate,String cityName){
+        List everyDay = DateUtils.getEveryDay(startDate, endDate);
+        List rate = userOfDate.getUserBacthDaysinc(everyDay,cityName);
+        return  rate;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/growthrate")
+    public String rate(String date){
+        String rate = userOfDate.getRegisterByDay(date);
+        return  rate;
+    }
+
+    @ResponseBody
+    @RequestMapping("/growthrateinp")
+    public String raste(String date,String provinceName){
+        String rate = userOfDate.getRegisterByDayinp(date, provinceName);
+        return  rate;
+    }
+
+    @ResponseBody
+    @RequestMapping("/growthrateinc")
+    public String rastes(String date,String cityName){
+        String rate = userOfDate.getRegisterByDayinpc(date, cityName);
+        return  rate;
+    }
+
 
     @ResponseBody
     @RequestMapping("/userpbetweendate")

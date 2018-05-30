@@ -2,6 +2,7 @@ package com.wf.user.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wf.user.common.DateUtils;
 import com.wf.user.common.PageResult;
 import com.wf.user.dao.UserDate;
 import com.wf.user.model.CityUser;
@@ -11,6 +12,9 @@ import com.wf.user.service.UserOfDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -23,6 +27,171 @@ public class UserOfDateImpl implements UserOfDate {
     @Autowired
     private UserDate userDate;
 
+    /**
+     * 计算出昨天和今天的比例
+     * @param i 今天
+     * @param j 昨天
+     * @return
+     */
+    private  String getRate(int i,int j){
+        double rate = 0;
+        if(j > i){
+            rate = -(double) (j-i) / (double) j;
+        }
+        if(j < i){
+            rate = (double) (i-j) / (double) j;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(rate);
+    }
+
+
+    @Override
+    public List getUserBacthDays(List days) {
+        List<DateUser> users = userDate.userBatchDay(days);
+        Map map = new HashMap();
+        for(DateUser user:users){
+            map.put(user.getDate(),user.getNum());
+        }
+        List list = new ArrayList();
+        for(DateUser user:users){
+            String date = user.getDate();
+            String subDay = DateUtils.dateSubByDay(date, -1);
+            if(map.get(subDay) != null){
+                Map map1 = new HashMap();
+                map1.put(user.getDate(),getRate((int)map.get(date),(int)map.get(subDay)));
+                list.add(map1);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 将数据库查询的结果List<DateUser> 封装成 list<map>
+     * @param users
+     * @return
+     */
+    private List dateusersTolistmap(List<DateUser> users){
+        //封装map  key->date value->num
+        Map map = new HashMap();
+        for(DateUser user:users){
+            map.put(user.getDate(),user.getNum());
+        }
+
+        List list = new ArrayList();
+        for(DateUser user:users){
+            String date = user.getDate();
+            String subDay = DateUtils.dateSubByDay(date, -1);
+            if(map.get(subDay) != null){
+                Map map1 = new HashMap();
+                map1.put(user.getDate(),getRate((int)map.get(date),(int)map.get(subDay)));
+                list.add(map1);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List getUserBacthDaysinp(List days, String provinceName) {
+        List<DateUser> users = userDate.userBatchDayinp(days, provinceName);
+        return dateusersTolistmap(users);
+    }
+
+    @Override
+    public List getUserBacthDaysinc(List days, String cityName) {
+        List<DateUser> dateUsers = userDate.userBatchDayinc(days, cityName);
+        return dateusersTolistmap(dateUsers);
+    }
+
+    @Override
+    public String getRegisterByDay(String date) {
+        double rate = 0;
+        int i;
+        i = userDate.userRegisterInSameDay(date);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        int j = 0 ;
+        try {
+            Date day = simpleDateFormat.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(day);
+            calendar.add(Calendar.DAY_OF_YEAR,-1);
+            Date calendarTime = calendar.getTime();
+            String yesterday = simpleDateFormat.format(calendarTime);
+            j = userDate.userRegisterInSameDay(yesterday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(j > i){
+            rate = -(double) (j-i) / (double) j;
+        }
+        if(j < i){
+            rate = (double) (i-j) / (double) j;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String s = decimalFormat.format(rate);
+        return s;
+
+    }
+
+    @Override
+    public String getRegisterByDayinp(String date, String provinceName) {
+        double rate = 0;
+        int i;
+        i = userDate.userRegisterInSameDayinp(date, provinceName);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        int j = 0 ;
+        try {
+            Date day = simpleDateFormat.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(day);
+            calendar.add(Calendar.DAY_OF_YEAR,-1);
+            Date calendarTime = calendar.getTime();
+            String yesterday = simpleDateFormat.format(calendarTime);
+            j = userDate.userRegisterInSameDayinp(yesterday,provinceName);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(j > i){
+            rate = -(double) (j-i) / (double) j;
+        }
+        if(j < i){
+            rate = (double) (i-j) / (double) j;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String s = decimalFormat.format(rate);
+        return s;
+
+    }
+
+    @Override
+    public String getRegisterByDayinpc(String date, String cityName) {
+        double rate = 0;
+        int i;
+        i = userDate.userRegisterInSameDayinpc(date, cityName);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        int j = 0 ;
+        try {
+            Date day = simpleDateFormat.parse(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(day);
+            calendar.add(Calendar.DAY_OF_YEAR,-1);
+            Date calendarTime = calendar.getTime();
+            String yesterday = simpleDateFormat.format(calendarTime);
+            j = userDate.userRegisterInSameDayinpc(yesterday,cityName);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(j > i){
+            rate = -(double) (j-i) / (double) j;
+        }
+        if(j < i){
+            rate = (double) (i-j) / (double) j;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        String s = decimalFormat.format(rate);
+        return s;
+
+    }
 
     @Override
     public List<DateUser> getLast10Dayregister() {

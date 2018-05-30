@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -59,12 +58,31 @@ public class UserAreaController {
 
     @ResponseBody
     @RequestMapping(value = "/provinceUserInfo")
-    public PageResult abs(@RequestParam(name = "limit",defaultValue = "5") int limit,
-                          @RequestParam(name = "offset",defaultValue = "0") int offset){
-        PageResult page = UserOfArea.getAllProvinceUserPage(limit, offset);
+    public PageResult abs(){
+        List<ProvinceUser> userList2 = UserOfArea.getAllProvinceUser();
+        double totalNum = 0;
+        for(ProvinceUser user:userList2){
+            totalNum += (double) user.getNum();
+        }
+
+        List list = new ArrayList();
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        for(ProvinceUser user:userList2){
+            Map map = new HashMap();
+            map.put("areaName",user.getProvincename());
+            map.put("num",user.getNum());
+
+            map.put("percent",decimalFormat.format((double) (user.getNum()*100)/totalNum));
+            list.add(map);
+        }
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(userList2.size());
+        pageResult.setRows(list);
+
+        return pageResult;
 
 
-        return page;
     }
 
     @ResponseBody

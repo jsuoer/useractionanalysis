@@ -10,6 +10,41 @@ import java.util.List;
 public interface UserOfDate {
 
     /**
+     * 批量获取 指定某几天的用户数量  全国
+     * @param days yyyy-MM-dd
+     * @return
+     */
+    List getUserBacthDays(List days);
+    /**
+     * 批量获取 指定某几天的用户数量  省份
+     * @param days yyyy-MM-dd
+     * @return
+     */
+    List getUserBacthDaysinp(List days,String provinceName);
+    /**
+     * 批量获取 指定某几天的用户数量  城市
+     * @param days yyyy-MM-dd
+     * @return
+     */
+    List getUserBacthDaysinc(List days,String cityName);
+
+    /**
+     * 用户某一天的增长率  相比于前一天
+     */
+    String getRegisterByDay(String date);
+
+    /**
+     * 用户某一天 某个省 的增长率   相比于前一天
+     */
+    String getRegisterByDayinp(String date,String provinceName);
+
+    /**
+     * 用户某一天 某个市 的增长率   相比于前一天
+     */
+    String getRegisterByDayinpc(String date,String cityName);
+
+
+    /**
      * 获取前十天的用户注册信息
      * @return
      */

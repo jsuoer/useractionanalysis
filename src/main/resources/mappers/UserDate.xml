@@ -45,6 +45,60 @@
         AND t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0 AND c.Cname=#{cityName}
         GROUP BY DATE(t.CREATE_TIME) ORDER BY DATE(t.CREATE_TIME) ASC
     </select>
+    <select id="userRegisterInSameDay" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM T_LT_LOTTERYBUYER_OR_EXPERT
+        WHERE DATE_FORMAT(CREATE_TIME,'%Y-%m-%d')=#{date}
+        and IS_DELETED=1 and IS_EXPERT=0 and IS_VIRTUAL=0
+    </select>
+    <select id="userRegisterInSameDayinp" resultType="java.lang.Integer">
+         SELECT COUNT(1) FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+        ON t.PROVINCE_CODE=p.Pcode
+        WHERE DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d')=#{date}
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        AND p.Pname=#{provinceName}
+    </select>
+    <select id="userRegisterInSameDayinpc" resultType="java.lang.Integer">
+         SELECT COUNT(1) FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+        ON t.CITY_CODE = c.Ccode
+        WHERE DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d')=#{date}
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+          AND c.Cname=#{cityName}
+
+    </select>
+    <select id="userBatchDay" resultType="com.wf.user.model.DateUser" parameterType="list">
+        SELECT DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') as date,COUNT(1) as num FROM T_LT_LOTTERYBUYER_OR_EXPERT
+        WHERE DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') IN
+         <foreach collection="list" item="day" open="(" close=")" separator=",">
+             #{day}
+         </foreach>
+        and IS_DELETED=1 and IS_EXPERT=0 and IS_VIRTUAL=0
+        GROUP BY DATE_FORMAT(CREATE_TIME,'%Y-%m-%d')
+        ORDER BY CREATE_TIME ASC
+    </select>
+    <select id="userBatchDayinp" resultType="com.wf.user.model.DateUser">
+        SELECT DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') as date,COUNT(1) as num
+        FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_PROVINCE p
+        on t.PROVINCE_CODE=p.Pcode
+        WHERE DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') IN
+        <foreach collection="days" item="day" open="(" close=")" separator=",">
+            #{day}
+        </foreach>
+        and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0 and p.Pname=#{provinceName}
+        GROUP BY DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d')
+        ORDER BY t.CREATE_TIME ASC;
+    </select>
+    <select id="userBatchDayinc" resultType="com.wf.user.model.DateUser">
+        SELECT DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') as date,COUNT(1) as num
+        FROM T_LT_LOTTERYBUYER_OR_EXPERT t JOIN T_SDF_CITY c
+        on t.CITY_CODE=c.Ccode
+                WHERE DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d') IN
+        <foreach collection="days" item="day" open="(" close=")" separator=",">
+            #{day}
+        </foreach>
+                and t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0 and c.Cname=#{cityName}
+                GROUP BY DATE_FORMAT(t.CREATE_TIME,'%Y-%m-%d')
+                ORDER BY t.CREATE_TIME ASC;
+    </select>
 
 
 </mapper>

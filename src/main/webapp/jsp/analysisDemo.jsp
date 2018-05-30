@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <%--<jsp:include page="common.jsp"></jsp:include>--%>
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/bootstrap-table.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/simple-sidebar.css" rel="stylesheet">
-        <%--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">--%>
         <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 
@@ -13,11 +11,19 @@
 
         <link href="<%=request.getContextPath()%>/css/bootstrap-select.min.css">
 
-        <!-- 引入bootstrap-table样式 -->
-        <%--<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">--%>
-    <link href="${pageContext.request.contextPath}/css/top.css" rel="stylesheet" />
+        <link href="${pageContext.request.contextPath}/css/top.css" rel="stylesheet" />
 
     <title>地域分析</title>
+    <style type="text/css">
+        .optionitems{
+            height: 400px;
+            overflow: scroll;
+        }
+        .btstp_table{
+            height: 80%;
+            overflow: scroll;
+        }
+    </style>
 
 </head>
 <body>
@@ -54,7 +60,7 @@
 
         <div class="conditionDiv">
             <span class="rementDiv">区域：</span>
-            <select  class="selectpicker show-tick" style="outline: none;width:200px;" data-live-search="true" id="select_article" >
+            <select    class="selectpicker show-tick show-menu-arrow" style="outline: none;width:200px;" data-live-search="true" id="select_article" >
                 <option value="">请选择</option>
                 <option value="安徽省">安徽省</option>
                 <option value="澳门">澳门</option>
@@ -130,6 +136,14 @@
     <%--<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>--%>
     <script type="text/javascript">
         $(function () {
+
+            $('#select_article').selectpicker({
+                noneSelectedText: '请选择',
+
+                liveSearch: true,
+                size:40,
+                showIcon:false
+            });
 
             // 时间控件的 change 事件
             $('#datetimepickerVal2').change(function () {
@@ -213,19 +227,16 @@
                 $("#datetimepicker2").datetimepicker("setStartDate",startVal);
             });
 
-            $('.selectpicker').selectpicker({
-                noneSelectedText: '',
-                noneResultsText: '',
-                liveSearch: true,
-                tickIcon:'',//不显示下拉选项中的对号
-                size:50   //设置select高度，同时显示5个值
-            });
+
 
             $(".conditionDiv select").hide();//隐藏bootstrap select的原始下拉框
 
             initTable();
 
             initChart();
+
+            $('ul[role="listbox"]').addClass('optionitems');
+            $('.bootstrap-table').addClass('btstp_table');
 
         });
 
@@ -921,7 +932,7 @@
                 pageList: [5,10,15], // 设置页面可以显示的数据条数
                 pageSize: 5, // 页面数据条数
                 pageNumber: 1, // 首页页码
-                sidePagination: 'server', // 设置为服务器端分页
+                sidePagination: 'client', // 设置为服务器端分页
                 queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
 
                     return {
@@ -952,6 +963,9 @@
                         valign: 'middle'
                     }
                 ],
+                responseHandler: function(data){
+                    return data.rows;
+                },
                 onLoadSuccess: function(data){  //加载成功时执行
                     console.log(data);
                     console.info("加载成功");
@@ -961,6 +975,9 @@
                 }
 
             });
+
+
+
 
 
 
