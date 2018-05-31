@@ -120,6 +120,9 @@
                                     option.series[0].data = data;
                                     option.title.text = startDate+' 至 '+endDate+cityName+'用户来源比例';
                                     initChart();
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/userfrom/alltpcdateincfort?startDate='+startDate+'&endDate='+endDate
+                                        +'&cityName='+cityName});
                                 }
                             })
                         }else {
@@ -132,6 +135,9 @@
                                     option.series[0].data = data;
                                     option.title.text = startDate+' 至 '+endDate+provinceName+'用户来源比例';
                                     initChart();
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/userfrom/alltpcdateinpfort?startDate='+startDate+'&endDate='+endDate
+                                            +'&provinceName='+provinceName});
                                 }
                             })
                         }
@@ -153,6 +159,8 @@
                                 option.series[0].data = data;
                                 option.title.text = provinceName+'用户来源比例';
                                 initChart();
+                                $('#table1').bootstrapTable('refresh',
+                                    {url: '<%=request.getContextPath()%>/userfrom/alltpcinpfort?provinceName='+provinceName});
                             }
                         })
                     }else {
@@ -164,6 +172,8 @@
                                 option.series[0].data = data;
                                 option.title.text = cityName+'用户来源比例';
                                 initChart();
+                                $('#table1').bootstrapTable('refresh',
+                                    {url: '<%=request.getContextPath()%>/userfrom/alltpcincfort?cityName='+cityName});
                             }
                         })
                     }

@@ -49,13 +49,33 @@ public class UserFromController {
     @ResponseBody
     @RequestMapping("/alltpcinp")
     public List ainp(String provinceName){
-        return userFromService.userFromNuminp(provinceName);
+        return  userFromService.userFromNuminp(provinceName);
+    }
+
+    @ResponseBody
+    @RequestMapping("/alltpcinpfort")
+    public PageResult alltpcinpfort(String provinceName){
+        List list = userFromService.userFromNuminp(provinceName);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(listForPageResult(list));
+        return pageResult;
     }
 
     @ResponseBody
     @RequestMapping("/alltpcinc")
     public List ainc(String cityName){
         return userFromService.userFromNuminc(cityName);
+
+    }
+    @ResponseBody
+    @RequestMapping("/alltpcincfort")
+    public PageResult alltpcincfort(String cityName){
+        List list = userFromService.userFromNuminc(cityName);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(listForPageResult(list));
+        return pageResult;
     }
 
     @ResponseBody
@@ -81,9 +101,29 @@ public class UserFromController {
     }
 
     @ResponseBody
+    @RequestMapping("/alltpcdateincfort")
+    public PageResult alltpcdateincfort(String startDate, String endDate, String cityName){
+        List list = userFromService.userFromNumDurinc(startDate, endDate, cityName);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(listForPageResult(list));
+        return pageResult;
+    }
+
+    @ResponseBody
     @RequestMapping("/alltpcdateinp")
     public List acp(String startDate,String endDate,String provinceName){
         return userFromService.userFromNumDurinp(startDate, endDate, provinceName);
+    }
+
+    @ResponseBody
+    @RequestMapping("/alltpcdateinpfort")
+    public PageResult alltpcdateinpfort(String startDate, String endDate, String provinceName){
+        List list =  userFromService.userFromNumDurinp(startDate, endDate, provinceName);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(list.size());
+        pageResult.setRows(listForPageResult(list));
+        return pageResult;
     }
 
 

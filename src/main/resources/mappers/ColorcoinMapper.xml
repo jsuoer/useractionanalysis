@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.ColorcoinMapper">
+    <sql id="baseSql">
+        t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </sql>
+    <select id="usersRangeConin" resultType="java.lang.Integer">
+        select count(1) from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <choose>
+           <when test="cityName != null">
+               join T_SDF_CITY c on t.CITY_CODE=c.Ccode
+               WHERE <include refid="baseSql"/>
+               and c.Cname=#{cityName} and t.COLOR_COINS BETWEEN #{min} and #{max}
+           </when>
+            <when test="provinceName != null">
+                join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+                WHERE <include refid="baseSql"/>
+                and p.Pname=#{provinceName} and t.COLOR_COINS BETWEEN #{min} and #{max}
+            </when>
+            <when test="provinceName == null and cityName == null">
+                WHERE <include refid="baseSql"/>
+                and t.COLOR_COINS BETWEEN #{min} and #{max}
+            </when>
+        </choose>
+
+    </select>
+    <select id="users" resultType="java.lang.Integer">
+        select count(1) from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="provinceName != null">
+            JOIN T_SDF_PROVINCE p on t.PROVINCE_CODE=p.Pcode
+            WHERE <include refid="baseSql"/>
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            JOIN T_SDF_CITY c ON t.CITY_CODE=c.Ccode
+            WHERE <include refid="baseSql"/>
+            and c.Cname=#{cityName}
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE <include refid="baseSql"/>
+        </if>
+    </select>
+</mapper>
