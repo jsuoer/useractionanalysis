@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.RegisterLoginMapper">
+    <sql id="basesql">
+        and t.IS_DELETED=1 AND t.IS_EXPERT=0 AND t.IS_VIRTUAL=0
+    </sql>
+
+    <select id="userregistenum" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') AND p.Pname=#{provinceName} <include refid="basesql"/>
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on t.CITY_CODE=c.Ccode
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and c.Cname=#{cityName} <include refid="basesql"/>
+        </if>
+        <if test="cityName == null and provinceName==null">
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') <include refid="basesql"/>
+        </if>
+    </select>
+    <select id="userloginnum" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') AND p.Pname=#{provinceName} and t.ALREADY_LOGIN = 1 <include refid="basesql"/>
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on t.CITY_CODE=c.Ccode
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and c.Cname=#{cityName} and t.ALREADY_LOGIN = 1 <include refid="basesql"/>
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE DATE(t.CREATE_TIME) BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and t.ALREADY_LOGIN = 1 <include refid="basesql"/>
+        </if>
+    </select>
+    <select id="getUserRegisteNoLogin" resultType="com.wf.user.model.UserRegisteNoLogin">
+        SELECT t.`NAME`,TELEPHONE,DATE(t.CREATE_TIME) as date from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0
+            AND t.IS_VIRTUAL=0 AND DATE(t.CREATE_TIME)
+            BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and ALREADY_LOGIN=0 and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on c.Ccode=t.CITY_CODE
+            WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0
+            AND t.IS_VIRTUAL=0 AND DATE(t.CREATE_TIME)
+            BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and ALREADY_LOGIN=0 and c.Cname=#{cityName}
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE t.IS_DELETED=1 AND t.IS_EXPERT=0
+            AND t.IS_VIRTUAL=0 AND DATE(t.CREATE_TIME)
+            BETWEEN STR_TO_DATE(#{startdate},'%Y-%m-%d')
+            and STR_TO_DATE(#{enddate},'%Y-%m-%d') and ALREADY_LOGIN=0
+        </if>
+
+    </select>
+</mapper>

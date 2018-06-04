@@ -23,10 +23,6 @@
             height: 80%;
             overflow: scroll;
         }
-    </style>
-
-
-    <style>
         .chartDiv{
             height: 65%;
         }

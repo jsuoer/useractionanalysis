@@ -54,6 +54,12 @@
                     <li><a href="${pageContext.request.contextPath}/jsp/usercolorcoin.jsp" class="J_menuItem">
                             <span class="fa-stack fa-lg pull-left">
                                 <i class="fa fa-users fa-stack-1x "></i></span>用户奖豆状况</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/stationownerearn.jsp" class="J_menuItem">
+                            <span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>站主收益状况</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/registerlogin.jsp" class="J_menuItem">
+                            <span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>用户注册登陆状况</a></li>
                 </ul>
             </li>
 

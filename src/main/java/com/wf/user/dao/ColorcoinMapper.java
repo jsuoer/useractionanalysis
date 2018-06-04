@@ -16,4 +16,5 @@ public interface ColorcoinMapper {
      * @return
      */
     int users(@Param("provinceName") String provinceName, @Param("cityName") String cityName);
+
 }

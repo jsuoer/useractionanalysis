@@ -56,7 +56,7 @@ public class UserOfDateImpl implements UserOfDate {
         List list = new ArrayList();
         for(DateUser user:users){
             String date = user.getDate();
-            String subDay = DateUtils.dateSubByDay(date, -1);
+            String subDay = DateUtils.datecalculByDay(date, -1);
             if(map.get(subDay) != null){
                 Map map1 = new HashMap();
                 map1.put(user.getDate(),getRate((int)map.get(date),(int)map.get(subDay)));
@@ -81,7 +81,7 @@ public class UserOfDateImpl implements UserOfDate {
         List list = new ArrayList();
         for(DateUser user:users){
             String date = user.getDate();
-            String subDay = DateUtils.dateSubByDay(date, -1);
+            String subDay = DateUtils.datecalculByDay(date, -1);
             if(map.get(subDay) != null){
                 Map map1 = new HashMap();
                 map1.put(user.getDate(),getRate((int)map.get(date),(int)map.get(subDay)));

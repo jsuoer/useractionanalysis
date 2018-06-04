@@ -52,7 +52,7 @@ public class DateUtils {
      * @param num 减去的天数
      * @return str
      */
-    public static String dateSubByDay(String date,int num){
+    public static String datecalculByDay(String date,int num){
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date dt= null;
         try {
@@ -66,5 +66,14 @@ public class DateUtils {
         Date dt1=rightNow.getTime();
         return  sdf.format(dt1);
 
+    }
+
+    /**
+     * 获取今天的日期string
+     * @return
+     */
+    public static String todayStr(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(new Date());
     }
 }

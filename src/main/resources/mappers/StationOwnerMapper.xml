@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.StationOwnerMapper">
+    <sql id="baseSql">
+        t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+    </sql>
+
+    <select id="allStationOwner" resultType="java.lang.String">
+        SELECT t.id FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on t.PROVINCE_CODE=p.Pcode
+            WHERE t.IS_STATION_OWNER=1 and <include refid="baseSql"/>
+            AND p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c ON c.Ccode=t.CITY_CODE
+            WHERE t.IS_STATION_OWNER=1 and <include refid="baseSql"/>
+            AND c.Cname=#{cityName}
+        </if>
+        <if test="provinceName == null and cityName == null">
+            WHERE t.IS_STATION_OWNER=1 and <include refid="baseSql"/>
+        </if>
+    </select>
+
+
+    <select id="inviteCodeOfStation" resultType="java.lang.String">
+        SELECT t.INVITE_CODE FROM T_LT_LOTTERYSTATION t
+        WHERE t.managerId=#{ownId} and t.INVITE_CODE is not null
+        and t.INVITE_CODE != ''
+    </select>
+
+    <select id="getUserIdByInviteCode" resultType="java.lang.String">
+        SELECT t.ID FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        and t.INVITE_CODE in
+        <foreach collection="inviteCode" item="code" separator="," open="(" close=")">
+            #{code}
+        </foreach>
+    </select>
+
+    <select id="stationOwnerEarnOrNot" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_THIRD_PAY_ORDER t
+        WHERE DATE_FORMAT(t.ORDER_FINISH_TIME,'%Y-%m-%d') = DATE_FORMAT(DATE_SUB(STR_TO_DATE(#{date},'%Y-%m-%d'),INTERVAL 1 DAY),'%Y-%m-%d')
+        AND t.`STATUS`=1 and t.USER_ID = #{userId}
+    </select>
+    <select id="useridofyesterdaypay" resultType="java.lang.String">
+        SELECT t.USER_ID  from T_LT_THIRD_PAY_ORDER t
+        WHERE DATE_FORMAT(t.ORDER_FINISH_TIME,'%Y-%m-%d') = DATE_FORMAT(DATE_SUB(STR_TO_DATE(#{date},'%Y-%m-%d'),INTERVAL 1 DAY),'%Y-%m-%d')
+        AND t.`STATUS`=1
+    </select>
+    <select id="useridByOwnerid" resultType="java.lang.String">
+        SELECT t.ID FROM T_LT_LOTTERYBUYER_OR_EXPERT t
+        WHERE t.IS_DELETED=1 and t.IS_EXPERT=0 and t.IS_VIRTUAL=0
+        and t.INVITE_CODE in
+          (SELECT t.INVITE_CODE FROM T_LT_LOTTERYSTATION t
+        WHERE t.managerId=#{id})
+    </select>
+    <select id="stationearn" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT(t.managerId)) from T_LT_LOTTERYSTATION t
+        WHERE t.INVITE_CODE in (
+        SELECT DISTINCT(s.INVITE_CODE) from T_LT_LOTTERYBUYER_OR_EXPERT s
+        WHERE s.id in (
+        SELECT t.USER_ID  from T_LT_THIRD_PAY_ORDER t
+        WHERE DATE_FORMAT(t.ORDER_FINISH_TIME,'%Y-%m-%d') = DATE_FORMAT(DATE_SUB(STR_TO_DATE(#{date},'%Y-%m-%d'),INTERVAL 1 DAY),'%Y-%m-%d')
+        AND t.`STATUS`=1))
+    </select>
+</mapper>
