@@ -22,5 +22,12 @@ public interface RegisterLoginMapper {
      */
     List<UserRegisteNoLogin> getUserRegisteNoLogin(@Param("startdate") String startdate, @Param("enddate") String enddate, @Param("provinceName") String provinceName, @Param("cityName") String cityName);
 
+    /**
+     * 获取所有用户  指定性别
+     * 1 -> 男性
+     * 0 -> 女性
+     */
+    int selectSexUser(@Param("provinceName") String provinceName, @Param("cityName") String cityName, @Param("sex") int sex);
+
 
 }

@@ -63,4 +63,19 @@
         </if>
 
     </select>
+    <select id="selectSexUser" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_LOTTERYBUYER_OR_EXPERT t
+        <if test="cityName != null">
+            JOIN T_SDF_CITY c on c.Ccode=t.CITY_CODE
+            WHERE t.SEX=#{sex} and c.Cname=#{cityName} <include refid="basesql"/>
+        </if>
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE t.SEX=#{sex} AND p.Pname=#{provinceName} <include refid="basesql"/>
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE t.SEX=#{sex} <include refid="basesql"/>
+        </if>
+
+    </select>
 </mapper>

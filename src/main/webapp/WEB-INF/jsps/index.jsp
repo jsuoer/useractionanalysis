@@ -60,6 +60,9 @@
                     <li><a href="${pageContext.request.contextPath}/jsp/registerlogin.jsp" class="J_menuItem">
                             <span class="fa-stack fa-lg pull-left">
                                 <i class="fa fa-users fa-stack-1x "></i></span>用户注册登陆状况</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/usersex.jsp" class="J_menuItem">
+                            <span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>用户性别比例状况</a></li>
                 </ul>
             </li>
 
@@ -72,11 +75,11 @@
                 </a>
 
                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-                    <li><a href="${pageContext.request.contextPath}/jsp/analysis.jsp" class="J_menuItem">
+                    <li><a href="${pageContext.request.contextPath}/jsp/userpayjsp/paytype.jsp" class="J_menuItem">
                             <span class="fa-stack fa-lg pull-left">
-                                <i class="fa fa-flag fa-stack-1x "></i></span>分析数据</a></li>
-                    <li><a href="http://www.layui.com/doc/" class="J_menuItem"><span class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i></span>link2</a></li>
+                                <i class="fa fa-flag fa-stack-1x "></i></span>用户充值类型</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userpayjsp/payuserarea.jsp" class="J_menuItem"><span class="fa-stack fa-lg pull-left">
+                            <i class="fa fa-flag fa-stack-1x "></i></span>用户充值区域分布</a></li>
                     <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem"><span
                             class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>测试</a></li>

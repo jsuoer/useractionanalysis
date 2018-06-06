@@ -61,7 +61,7 @@
             <option value="黑龙江">黑龙江</option>
             <option value="河南省">河南省</option>
             <option value="湖北省">湖北省</option>
-            <option value="河南省">湖南省</option>
+            <option value="湖南省">湖南省</option>
             <option value="江苏省">江苏省</option>
             <option value="江西省">江西省</option>
             <option value="吉林省">吉林省</option>
@@ -196,8 +196,8 @@
                                 option.series[0].data = data;
                                 option.title.text = startDate+' 至 '+endDate+'注册未登录用户比例';
                                 initChart();
-                                <%--$('#table1').bootstrapTable('refresh',--%>
-                                    <%--{url: '<%=request.getContextPath()%>/userfrom/alltpcdatefort?startDate='+startDate+'&endDate='+endDate});--%>
+                                $('#table1').bootstrapTable('refresh',
+                                    {url: '<%=request.getContextPath()%>/rl/nologininfo?startDate='+startDate+'&endDate='+endDate});
                             }
                         })
                     }else {
@@ -207,13 +207,12 @@
                                 url:'${pageContext.request.contextPath}/rl/rlrate?startDate='+startDate+
                                 '&endDate='+endDate+'&cityName='+cityName,
                                 success: function(data) {
-                                    console.log(data)
                                     option.series[0].data = data;
-                                    option.title.text = startDate+' 至 '+endDate+cityName+'用户来源比例';
+                                    option.title.text = startDate+' 至 '+endDate+cityName+'用户注册未登录比例';
                                     initChart();
-                                    <%--$('#table1').bootstrapTable('refresh',--%>
-                                        <%--{url: '<%=request.getContextPath()%>/userfrom/alltpcdateincfort?startDate='+startDate+'&endDate='+endDate--%>
-                                            <%--+'&cityName='+cityName});--%>
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/rl/nologininfo?startDate='+startDate+'&endDate='+endDate
+                                            +'&cityName='+cityName});
                                 }
                             })
                         }else {
@@ -224,11 +223,11 @@
                                 success: function(data) {
                                     console.log(data)
                                     option.series[0].data = data;
-                                    option.title.text = startDate+' 至 '+endDate+provinceName+'用户来源比例';
+                                    option.title.text = startDate+' 至 '+endDate+provinceName+'用户未登录比例';
                                     initChart();
-                                    <%--$('#table1').bootstrapTable('refresh',--%>
-                                        <%--{url: '<%=request.getContextPath()%>/userfrom/alltpcdateinpfort?startDate='+startDate+'&endDate='+endDate--%>
-                                            <%--+'&provinceName='+provinceName});--%>
+                                    $('#table1').bootstrapTable('refresh',
+                                        {url: '<%=request.getContextPath()%>/rl/nologininfo?startDate='+startDate+'&endDate='+endDate
+                                            +'&provinceName='+provinceName});
                                 }
                             })
                         }
@@ -248,10 +247,10 @@
                             success: function(data) {
                                 console.log(data)
                                 option.series[0].data = data;
-                                option.title.text = provinceName+'用户来源比例';
+                                option.title.text = provinceName+'用户未登录比例';
                                 initChart();
-                                <%--$('#table1').bootstrapTable('refresh',--%>
-                                    <%--{url: '<%=request.getContextPath()%>/userfrom/alltpcinpfort?provinceName='+provinceName});--%>
+                                $('#table1').bootstrapTable('refresh',
+                                    {url: '<%=request.getContextPath()%>/rl/nologininfo?provinceName='+provinceName});
                             }
                         })
                     }else {
@@ -261,10 +260,10 @@
                             success: function(data) {
                                 console.log(data)
                                 option.series[0].data = data;
-                                option.title.text = cityName+'用户来源比例';
+                                option.title.text = cityName+'用户未登录比例';
                                 initChart();
-                                <%--$('#table1').bootstrapTable('refresh',--%>
-                                    <%--{url: '<%=request.getContextPath()%>/userfrom/alltpcincfort?cityName='+cityName});--%>
+                                $('#table1').bootstrapTable('refresh',
+                                    {url: '<%=request.getContextPath()%>/rl/nologininfo?cityName='+cityName});
                             }
                         })
                     }
@@ -298,7 +297,7 @@
         })
 
         initChart();
-        // initTable();
+        initTable();
         $('ul[role="listbox"]').addClass('optionitems');
         $('.bootstrap-table').addClass('btstp_table');
     });
@@ -309,9 +308,9 @@
         myChart.setOption(option);
     }
 
-    /*function initTable() {
+    function initTable() {
         $("#table1").bootstrapTable({
-            url: '${pageContext.request.contextPath}/userfrom/alltpcfort', // 获取表格数据的url
+            url: '${pageContext.request.contextPath}/rl/nologininfo', // 获取表格数据的url
             cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
             striped: true,  //表格显示条纹，默认为false
             showRefresh:true,
@@ -337,13 +336,18 @@
                     checkbox: true, // 显示一个勾选框
                     align: 'center' // 居中显示
                 }, {
-                    field: 'type', // 返回json数据中
-                    title: '注册方式', // 表格表头显示文字
+                    field: 'date', // 返回json数据中
+                    title: '注册日期', // 表格表头显示文字
                     align: 'center', // 左右居中
                     valign: 'middle' // 上下居中
                 }, {
-                    field: 'num',
-                    title: '人数',
+                    field: 'telephone',
+                    title: '电话号码',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'name',
+                    title: '名称',
                     align: 'center',
                     valign: 'middle'
                 }
@@ -359,7 +363,7 @@
 
         });
 
-    }*/
+    }
 </script>
 </body>
 </html>

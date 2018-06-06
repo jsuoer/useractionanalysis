@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"  %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
@@ -9,12 +9,6 @@
     <link href="<%=request.getContextPath()%>/css/bootstrap-select.min.css">
     <link href="${pageContext.request.contextPath}/css/top.css" rel="stylesheet" />
     <title>Title</title>
-    <style type="text/css">
-        .input-group {
-            width: 200px;
-            float: left;
-        }
-    </style>
 </head>
 <body>
 <div class="topDiv" >
@@ -26,17 +20,27 @@
 
     </div>
 
-    <div class="conditionDiv">
-        <span class="rementDiv">选择奖豆范围：</span>
-        <div class="input-group">
-            <input type="number" id="min" class="form-control" placeholder="最小金额">
-            <span class="input-group-addon">.00</span>
+    <%--<div class="conditionDiv">
+        <span class="rementDiv">选择时间：</span>
+        <div class="form-group">
+            <!--指定 date标记-->
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" id="datetimepickerVal1"/>
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+            </div>
         </div>
-        <div class="input-group">
-            <input type="number" id="max" class="form-control" placeholder="最大金额">
-            <span class="input-group-addon">.00</span>
+        <div class="form-group">
+            <!--指定 date标记-->
+            <div class='input-group date' id='datetimepicker2'>
+                <input type='text' class="form-control" id="datetimepickerVal2"/>
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                         </span>
+            </div>
         </div>
-    </div>
+    </div>--%>
 
     <div class="conditionDiv">
         <span class="rementDiv">地区：</span>
@@ -116,9 +120,25 @@
         size:50   //设置select高度，同时显示5个值
     });
 
+    /*$('#datetimepicker1,#datetimepicker2').datetimepicker({
+        language:  "zh-CN",
+        weekStart: 1,
+        todayBtn:  1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+    }).on("click",function(){
+        var endVal = $("#datetimepickerVal2").val();
+        $("#datetimepicker1").datetimepicker("setEndDate",endVal);
+    });*/
+
     var seriesData = [];
     $.ajax({
-        url:'${pageContext.request.contextPath}/coin/coinzerorate',
+        url:'${pageContext.request.contextPath}/rl/sexrate',
         dataType:'json',
         async: false,
         processType:true,
@@ -129,8 +149,7 @@
 
     option = {
         title : {
-            text: '奖豆比例'
-
+            text: '全国男女比例'
         },
         tooltip : {
             trigger: 'item',
@@ -155,7 +174,44 @@
         ]
     };
 
+
     $(function () {
+
+        //查询按钮点击事件
+        $('#selectBtn').on('click',function () {
+            var provinceName = $('#select_article').val();
+            var cityName = $('#select_article2').val();
+            if (provinceName !== ''){
+                if (cityName !== ''){
+                    $.ajax({
+                        url:'${pageContext.request.contextPath}/rl/sexrate?cityName='+cityName,
+                        success: function(data) {
+                            option.series[0].data=data;
+                            option.title.text=provinceName+cityName+'男女比例';
+                            initChart();
+                            $('#table1').bootstrapTable('refresh',
+                                {url: '<%=request.getContextPath()%>/rl/sexratefort?cityName='+cityName});
+                        }
+                    })
+                }else {
+                    $.ajax({
+                        url:'${pageContext.request.contextPath}/rl/sexrate?provinceName='+provinceName,
+                        success: function(data) {
+                            option.series[0].data=data;
+                            option.title.text=provinceName+'男女比例';
+                            initChart();
+                            $('#table1').bootstrapTable('refresh',
+                                {url: '<%=request.getContextPath()%>/rl/sexratefort?provinceName='+provinceName});
+                        }
+                    })
+                }
+            }
+
+
+        })
+
+
+
         var cityMap ;
         $.ajax({
             url:'${pageContext.request.contextPath}/js/provinceCity.json',
@@ -181,27 +237,7 @@
         initTable();
         $('ul[role="listbox"]').addClass('optionitems');
         $('.bootstrap-table').addClass('btstp_table');
-
-
-        //查询按钮点击事件
-        $('#selectBtn').on('click',function () {
-            var min = $('#min').val();
-            var max = $('#max').val();
-            var provinceName = $('#select_article').val();
-            var cityName = $('#select_article2').val();
-            $.ajax({
-                url:'${pageContext.request.contextPath}/coin/coininfo?min='+min+'&max='+max+'&provinceName='+provinceName+
-                '&cityName='+cityName,
-                success: function(data) {
-                    option.series[0].data = data;
-                    initChart();
-                    $('#table1').bootstrapTable('refresh',
-                        {url: '<%=request.getContextPath()%>/coin/coininfofort?min='+min+'&max='+
-                            max+'&provinceName='+provinceName+ '&cityName='+cityName});
-                }
-            })
-        })
-    })
+    });
 
     function initChart() {
         var myChart = echarts.init(document.getElementById('main'));
@@ -211,7 +247,7 @@
 
     function initTable() {
         $("#table1").bootstrapTable({
-            url: '${pageContext.request.contextPath}/coin/coinzeroratefort', // 获取表格数据的url
+            url: '${pageContext.request.contextPath}/rl/sexratefort', // 获取表格数据的url
             cache: false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
             striped: true,  //表格显示条纹，默认为false
             showRefresh:true,
@@ -237,13 +273,13 @@
                     checkbox: true, // 显示一个勾选框
                     align: 'center' // 居中显示
                 }, {
-                    field: 'type', // 返回json数据中
-                    title: '注册方式', // 表格表头显示文字
+                    field: 'sex', // 返回json数据中
+                    title: '性别', // 表格表头显示文字
                     align: 'center', // 左右居中
                     valign: 'middle' // 上下居中
                 }, {
                     field: 'num',
-                    title: '人数',
+                    title: '数量',
                     align: 'center',
                     valign: 'middle'
                 }
@@ -260,8 +296,6 @@
         });
 
     }
-
-
 </script>
 </body>
 </html>

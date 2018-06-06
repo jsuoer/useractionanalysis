@@ -61,7 +61,7 @@
             <option value="黑龙江">黑龙江</option>
             <option value="河南省">河南省</option>
             <option value="湖北省">湖北省</option>
-            <option value="河南省">湖南省</option>
+            <option value="湖南省">湖南省</option>
             <option value="江苏省">江苏省</option>
             <option value="江西省">江西省</option>
             <option value="吉林省">吉林省</option>
