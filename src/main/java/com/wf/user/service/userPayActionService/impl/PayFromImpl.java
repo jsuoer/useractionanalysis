@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wf.user.dao.userPayActionDao.PayFromDao;
 import com.wf.user.model.AreaUserNum;
-import com.wf.user.model.ProvinceUser;
 import com.wf.user.model.UserPayInfo;
+import com.wf.user.model.UserPaydatenametype;
 import com.wf.user.service.userPayActionService.PayFrom;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,4 +97,62 @@ public class PayFromImpl implements PayFrom {
         }
         return list;
     }
+
+    @Override
+    public Map userpaySuccessOrNo(String startDate, String endDate, String provinceName, String cityName) {
+        if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+            startDate = null;
+            endDate = null;
+        }
+        if(StringUtils.isBlank(provinceName)){
+            provinceName = null;
+        }
+        if(StringUtils.isBlank(cityName)){
+            cityName = null;
+        }
+        if(StringUtils.isNotBlank(cityName) && StringUtils.isNotBlank(provinceName)){
+            provinceName = null;
+        }
+
+        List<UserPaydatenametype> paysuccess = payFromDao.getUserPaysuccess(startDate, endDate, provinceName, cityName);
+        List<UserPaydatenametype> payfail = payFromDao.getUserPayfail(startDate, endDate, provinceName, cityName);
+        Map map = new HashMap();
+        map.put("success",paysuccess.size());
+        map.put("fail",payfail.size());
+
+        return map;
+    }
+
+    @Override
+    public PageInfo userPayFailInfo(String startDate, String endDate, String provinceName, String cityName, int page, int size) {
+        if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+            startDate = null;
+            endDate = null;
+        }
+        if(StringUtils.isBlank(provinceName)){
+            provinceName = null;
+        }
+        if(StringUtils.isBlank(cityName)){
+            cityName = null;
+        }
+        if(StringUtils.isNotBlank(cityName) && StringUtils.isNotBlank(provinceName)){
+            provinceName = null;
+        }
+
+        PageHelper.startPage(page,size);
+        List<UserPaydatenametype> users = payFromDao.getUserPayfail(startDate, endDate, provinceName, cityName);
+        for(int i=0; i<users.size(); i++){
+            UserPaydatenametype user = users.get(i);
+            if(user.getType().equals("1")){
+                user.setType("微信");
+            }else {
+                user.setType("支付宝");
+            }
+        }
+
+
+        return new PageInfo(users);
+    }
+
+
 }

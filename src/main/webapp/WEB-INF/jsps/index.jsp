@@ -80,9 +80,9 @@
                                 <i class="fa fa-flag fa-stack-1x "></i></span>用户充值类型</a></li>
                     <li><a href="${pageContext.request.contextPath}/jsp/userpayjsp/payuserarea.jsp" class="J_menuItem"><span class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>用户充值区域分布</a></li>
-                    <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem"><span
+                    <li><a href="<%=request.getContextPath()%>/jsp/userpayjsp/userPayStatus.jsp" class="J_menuItem"><span
                             class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i></span>测试</a></li>
+                            <i class="fa fa-flag fa-stack-1x "></i></span>用户充值状态分布</a></li>
                     <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem">
                         <span class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>分析样式demo页</a></li>

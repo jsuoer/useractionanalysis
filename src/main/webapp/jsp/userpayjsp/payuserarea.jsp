@@ -440,10 +440,12 @@
                         name.splice(j + 1, l);
                         idx = j;
                         pos.leftCur -= pos.leftPlus * (l - j - 1);
+                        o.series[0].data = handleEvents.initSeriesData(opt.data);
                     };
                     o.geo.map = n;
                     o.geo.zoom = 1;
                     i.clear();
+                    console.log(o)
                     i.setOption(o);
                     opt.callback(n, o, i);
                 },
@@ -617,9 +619,7 @@
                             //key  也是  name   中国
                             var name = this.style.key;
                             opt.data = dd;
-                            if(name.length = 1){
-                                $('#table1').bootstrapTable('refresh',{url:'<%=request.getContextPath()%>/provinceUserInfo'});
-                            }
+
 
                             handleEvents.resetOption(chart, option, name);
                         }
@@ -635,9 +635,7 @@
                         },
                         onclick: function(){
                             opt.data = dd;
-                            if(name.length = 1){
-                                $('#table1').bootstrapTable('refresh',{url:'<%=request.getContextPath()%>/provinceUserInfo'});
-                            }
+
                             handleEvents.resetOption(chart, option, '中国');
                         }
                     }, {
@@ -652,10 +650,7 @@
                         },
                         onclick: function(){
                             opt.data = dd;
-                            if(name.length = 1){
-                                $('#table1').bootstrapTable('refresh',
-                                    {url:'<%=request.getContextPath()%>/provinceUserInfo'});
-                            }
+
                             handleEvents.resetOption(chart, option, '中国');
                         }
                     }]
@@ -802,9 +797,10 @@
                     type:"post",
                     url:"${pageContext.request.contextPath}/userpay/payusernum?startDate="+startDate+
                     '&endDate='+endDate+'&min='+min+'&max='+max+'&provinceName='+params.name,
+                    async:false,
                     success: function(data) {
                         opt.data = data;
-                        console.log(data)
+                        // option.series[0].data=handleEvents.initSeriesData(data)
                     }
                 })
 

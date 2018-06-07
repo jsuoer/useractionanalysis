@@ -31,4 +31,13 @@ public interface PayFrom {
      */
     List<Map> getuserpayNum(String min, String max, String startDate, String endDate, String provinceName);
 
+    /**
+     *
+     * @param cityName
+     * @return
+     */
+    Map userpaySuccessOrNo(String startDate, String endDate,String provinceName,String cityName);
+
+    PageInfo userPayFailInfo(String startDate, String endDate, String provinceName, String cityName, int page, int size);
+
 }

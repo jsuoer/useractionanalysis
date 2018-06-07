@@ -53,6 +53,35 @@ public class PayTypeController {
         return maps;
     }
 
+    @ResponseBody
+    @RequestMapping("/payusersuccessrate")
+    public List<Map> payuserinfos(String startDate, String endDate, String provinceName,String cityName){
+        Map map = payFrom.userpaySuccessOrNo(startDate, endDate, provinceName, cityName);
+
+        Map map1 = new HashMap();
+        Map map2 = new HashMap();
+        map1.put("name","充值成功");
+        map1.put("value",map.get("success"));
+        map2.put("name","充值失败");
+        map2.put("value",map.get("fail"));
+        List list = new ArrayList();
+        list.add(map1);
+        list.add(map2);
+        return list;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/payfailuser")
+    public PageResult payuserinfos(String startDate, String endDate, String provinceName, String cityName, int limit, int offset){
+        PageInfo pageInfo = payFrom.userPayFailInfo(startDate, endDate, provinceName, cityName, offset, limit);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal((int) pageInfo.getTotal());
+        pageResult.setRows(pageInfo.getList());
+        return  pageResult;
+    }
+
+
 
 
 

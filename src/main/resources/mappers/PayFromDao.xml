@@ -54,6 +54,7 @@
         <if test="min != null and max != null">
             HAVING sum(o.PRICE) BETWEEN #{min} and #{max}
         </if>
+        order by o.ORDER_FINISH_TIME desc
     </select>
     <select id="getUserPayNumP" resultType="com.wf.user.model.AreaUserNum">
         <if test="provinceName == null">
@@ -85,4 +86,52 @@
             </if>
         </if>
     </select>
+    <select id="getUserPaysuccess" resultType="com.wf.user.model.UserPaydatenametype">
+        SELECT t.`NAME`,date(o.ORDER_FINISH_TIME) as date,o.PAY_TYPE as type from T_LT_THIRD_PAY_ORDER o
+        join T_LT_LOTTERYBUYER_OR_EXPERT t on t.id=o.USER_ID
+        <if test="provinceName != null ">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE o.`STATUS`=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on c.Ccode=t.CITY_CODE
+            WHERE o.`STATUS`=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+            and c.Cname=#{cityName}
+        </if>
+        <if test="provinceName == null and cityName == null">
+            WHERE o.`STATUS`=1
+        </if>
+    </select>
+    <select id="getUserPayfail" resultType="com.wf.user.model.UserPaydatenametype">
+        SELECT t.`NAME`,date(o.ORDER_FINISH_TIME) as date,o.PAY_TYPE as type from T_LT_THIRD_PAY_ORDER o
+        join T_LT_LOTTERYBUYER_OR_EXPERT t on t.id=o.USER_ID
+        <if test="provinceName != null ">
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE o.`STATUS`=2 or o.`STATUS`=3
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on c.Ccode=t.CITY_CODE
+            WHERE o.`STATUS`=2 or o.`STATUS`=3
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+            and c.Cname=#{cityName}
+        </if>
+        <if test="provinceName == null and cityName == null">
+            WHERE o.`STATUS`=2 or o.`STATUS`=3
+        </if>
+        order by o.ORDER_FINISH_TIME desc
+    </select>
+
 </mapper>
