@@ -83,18 +83,9 @@
                     <li><a href="<%=request.getContextPath()%>/jsp/userpayjsp/userPayStatus.jsp" class="J_menuItem"><span
                             class="fa-stack fa-lg pull-left">
                             <i class="fa fa-flag fa-stack-1x "></i></span>用户充值状态分布</a></li>
-                    <li><a href="<%=request.getContextPath()%>/jsp/analysisDemo.jsp" class="J_menuItem">
-                        <span class="fa-stack fa-lg pull-left">
-                            <i class="fa fa-flag fa-stack-1x "></i></span>分析样式demo页</a></li>
 
                 </ul>
             </li>
-
-
-
-
-
-
 
             <li>
                 <a href="#">
@@ -104,14 +95,18 @@
                     用户消费行为分析
                 </a>
                 <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-                    <li>
-                        <a href="https://www.baidu.com/" class="J_menuItem">
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/tvapp.jsp" class="J_menuItem">
                                 <span class="fa-stack fa-lg pull-left">
                                     <i class="fa fa-flag fa-stack-1x "></i>
-                                </span>
-                            消费用户区域分析
-                        </a>
-                    </li>
+                                </span>用户消费情况</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/userbuydistribution.jsp" class="J_menuItem">
+                                <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-flag fa-stack-1x "></i>
+                                </span>用户分布情况</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/userpaytrend.jsp" class="J_menuItem">
+                                <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-flag fa-stack-1x "></i>
+                                </span>用户消费走势</a></li>
                 </ul>
             </li>
 

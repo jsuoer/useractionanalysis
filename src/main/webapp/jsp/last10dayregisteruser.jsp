@@ -357,7 +357,7 @@
                         color: "#fff"
                     }
 
-                },
+                }
             },
             grid: {
                 borderWidth: 0,
@@ -371,7 +371,7 @@
                 x: '4%',
                 top: '11%',
                 textStyle: {
-                    color: '#90979c',
+                    color: '#90979c'
                 }
             },
 
@@ -394,10 +394,10 @@
                     "show": false
                 },
                 "axisLabel": {
-                    "interval": 0,
+                    "interval": 0
 
                 },
-                data: xAxis_data,
+                data: xAxis_data
             }],
             "yAxis": [{
                 "type": "value",

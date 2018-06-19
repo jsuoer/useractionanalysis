@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.userbuydao.UserBuyMapper">
+    <select id="allpurchaserecoder" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_LOCATION_PAY_ORDER o
+        join T_LT_LOTTERYBUYER_OR_EXPERT t on t.id=o.USER_ID
+        <if test="cityName != null">
+            join T_SDF_CITY city on t.CITY_CODE=city.Ccode
+            WHERE o.ORDER_STATUS=1 and city.Cname=#{cityName}
+        </if>
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on t.PROVINCE_CODE=p.Pcode
+            WHERE o.ORDER_STATUS=1
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE  1=1
+        </if>
+        <if test="startDate != null and endDate != null">
+            and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+        </if>
+    </select>
+    <select id="userPurchaseTV" resultType="java.lang.Integer">
+        SELECT COUNT(1) from T_LT_LOCATION_PAY_ORDER o
+        join T_LT_LOTTERYBUYER_OR_EXPERT t on t.id=o.USER_ID
+        join T_LT_CHARGE_UNIT c on o.PAY_TARGET_ID=c.ID
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on t.PROVINCE_CODE=p.Pcode
+            WHERE  c.IS_DELETED=1 and o.ORDER_STATUS=1
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY city on t.CITY_CODE=city.Ccode
+            WHERE city.Cname=#{cityName} and c.IS_DELETED=1 and o.ORDER_STATUS=1
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE  c.IS_DELETED=1 and o.ORDER_STATUS=1
+        </if>
+        <if test="startDate != null and endDate != null">
+            and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+        </if>
+    </select>
+    <select id="getAllProvinceUserNum" resultType="com.wf.user.model.ProvinceUser">
+        SELECT p.pname as provinceName,SUM(o.PRICE) as num from T_LT_LOCATION_PAY_ORDER o
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID=o.USER_ID
+        JOIN T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+        <if test="type.equals('tv')">
+            WHERE o.PAY_TARGET_ID in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1
+            ) and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="type.equals('app')">
+            WHERE o.PAY_TARGET_ID not in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1
+            ) and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+
+        GROUP BY p.Pname
+    </select>
+    <select id="getUserNumByProvicne" resultType="com.wf.user.model.CityUser">
+        SELECT c.Cname as cityname,SUM(o.PRICE) as num from T_LT_LOCATION_PAY_ORDER o
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID=o.USER_ID
+        <if test="provinceName != null">
+            JOIN T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+        </if>
+        <if test="type.equals('tv')">
+            WHERE o.PAY_TARGET_ID in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1
+            ) and o.ORDER_STATUS=1 and p.pname=#{provinceName}
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="type.equals('app')">
+            WHERE o.PAY_TARGET_ID not in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1
+            ) and o.ORDER_STATUS=1 and p.pname=#{provinceName}
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        GROUP BY c.Ccode
+    </select>
+    <select id="userPayTrend" resultType="com.wf.user.model.DateUser">
+        SELECT date(o.ORDER_FINISH_TIME) as date,sum(o.PRICE) as num
+        from T_LT_LOCATION_PAY_ORDER o
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID=o.USER_ID
+        <if test="provinceName != null">
+            JOIN T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on t.CITY_CODE = c.Ccode
+        </if>
+        <if test="type.equals('tv')">
+            WHERE o.PAY_TARGET_ID in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1)
+            and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="type.equals('app')">
+            WHERE o.PAY_TARGET_ID not in (
+            SELECT u.ID from T_LT_CHARGE_UNIT u
+            WHERE u.is_deleted=1)
+            and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="provinceName != null">
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            and c.Cname=#{cityName}
+        </if>
+        GROUP BY date(o.ORDER_FINISH_TIME)
+        ORDER BY o.ORDER_FINISH_TIME
+    </select>
+    
+    <resultMap id="userPaydatenametype" type="com.wf.user.model.UserPaydatenametype">
+        <result column="date" property="date"></result>
+        <result column="name" property="name"></result>
+        <result column="num" property="type"></result>
+    </resultMap>
+    <select id="userPayList" resultMap="userPaydatenametype">
+        SELECT date(o.ORDER_FINISH_TIME) as date,sum(o.PRICE) as num,t.`NAME` as name 
+        from T_LT_LOCATION_PAY_ORDER o 
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID=o.USER_ID
+        <if test="provinceName != null">
+            JOIN T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on t.CITY_CODE = c.Ccode
+        </if>
+        <if test="type.equals('app')">
+            WHERE o.PAY_TARGET_ID not in
+            ( SELECT u.ID from T_LT_CHARGE_UNIT u WHERE u.is_deleted=1)
+            and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+              and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="type.equals('tv')">
+            WHERE o.PAY_TARGET_ID  in
+            ( SELECT u.ID from T_LT_CHARGE_UNIT u WHERE u.is_deleted=1)
+            and o.ORDER_STATUS=1
+            <if test="startDate != null and endDate != null">
+                and o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="provinceName != null">
+            and p.Pname=#{provinceName}
+        </if>
+        <if test="cityName != null">
+            and c.Cname=#{cityName}
+        </if>
+        GROUP BY t.`NAME`
+        ORDER BY o.ORDER_FINISH_TIME desc
+    </select>
+</mapper>
