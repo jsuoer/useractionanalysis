@@ -3,9 +3,8 @@ package com.wf.user.service.userPayActionService.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wf.user.dao.userPayActionDao.PayFromDao;
-import com.wf.user.model.AreaUserNum;
-import com.wf.user.model.UserPayInfo;
-import com.wf.user.model.UserPaydatenametype;
+import com.wf.user.dao.userPayActionDao.UserVipMapper;
+import com.wf.user.model.*;
 import com.wf.user.service.userPayActionService.PayFrom;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,9 @@ public class PayFromImpl implements PayFrom {
 
     @Autowired
     private PayFromDao payFromDao;
+
+    @Autowired
+    private UserVipMapper userVipMapper;
 
     @Override
     public Map userpayInfo(String min, String max, String startDate, String endDate, String provinceName, String cityName) {
@@ -152,6 +154,87 @@ public class PayFromImpl implements PayFrom {
 
 
         return new PageInfo(users);
+    }
+
+    @Override
+    public List vip2SvipNum(String startDate, String endDate, String provinceName, String cityName) {
+        if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+            startDate = null;
+            endDate = null;
+        }
+        if(StringUtils.isBlank(provinceName)){
+            provinceName = null;
+        }
+        if(StringUtils.isBlank(cityName)){
+            cityName = null;
+        }
+        if(StringUtils.isNotBlank(cityName) && StringUtils.isNotBlank(provinceName)){
+            provinceName = null;
+        }
+
+        int vipUserNum = userVipMapper.vipUserNum(startDate, endDate, provinceName, cityName);
+        int vipUserToSVIPNum = userVipMapper.vipUserToSVIP(startDate, endDate, provinceName, cityName);
+        List list = new ArrayList();
+        Map map1 = new HashMap();
+        map1.put("name","vip数量");
+        map1.put("value",vipUserNum);
+        Map map2 = new HashMap();
+        map2.put("name","vip升级到svip的数量");
+        map2.put("value",vipUserToSVIPNum);
+        list.add(map1);
+        list.add(map2);
+        return list;
+    }
+
+    @Override
+    public List vipOrsvipUserArea(String startDate, String endDate, String type) {
+        if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+            startDate = null;
+            endDate = null;
+        }
+        if(StringUtils.isBlank(type)){
+            type="vip";
+        }
+        return userVipMapper.getVipOrSvipNum(startDate, endDate, type);
+
+    }
+
+    @Override
+    public PageInfo userAndHisFrom(String startDate, String endDate, String provinceName, String cityName, String type, int limit, int offset) {
+        if(StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)){
+            startDate = null;
+            endDate = null;
+        }
+        if(StringUtils.isBlank(provinceName)){
+            provinceName = null;
+        }
+        if(StringUtils.isBlank(cityName)){
+            cityName = null;
+        }
+        if(StringUtils.isNotBlank(cityName) && StringUtils.isNotBlank(provinceName)){
+            provinceName = null;
+        }
+        if(StringUtils.isBlank(type)){
+            type="vip";
+        }
+        PageHelper.startPage(offset,limit);
+        List<UserInviteProxyCode> userCodeinfos = userVipMapper.getUserCodeinfo(startDate, endDate, provinceName, cityName, type);
+        PageInfo pageInfo = new PageInfo(userCodeinfos);
+        List list = new ArrayList();
+        for(UserInviteProxyCode user:userCodeinfos){
+            UserWithFrominfo userWithFrominfo = new UserWithFrominfo();
+            userWithFrominfo.setDate(user.getDate());
+            userWithFrominfo.setName(user.getName());
+            if(StringUtils.isNotBlank(user.getInviteCode())){
+                userWithFrominfo.setInvited(userVipMapper.getNameBystation(user.getInviteCode()));
+            }
+            if(StringUtils.isNotBlank(user.getProxy())){
+                userWithFrominfo.setProxy(userVipMapper.getNameByproxycode(user.getProxy()));
+            }
+            list.add(userWithFrominfo);
+        }
+        pageInfo.setList(list);
+        return pageInfo;
     }
 
 

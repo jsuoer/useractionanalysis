@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wf.user.dao.userPayActionDao.UserVipMapper">
+    <select id="vipUserNum" resultType="java.lang.Integer">
+        SELECT COUNT(1) from  T_LT_LOCATION_PAY_ORDER o
+        <if test="provinceName != null">
+            JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID = o.USER_ID
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE o.PAY_TARGET_ID LIKE '%free%'
+            and p.Pname=#{provinceName}
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="cityName != null">
+            JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID = o.USER_ID
+            join T_SDF_CITY c on t.CITY_CODE = c.Ccode
+            WHERE o.PAY_TARGET_ID LIKE '%free%'
+            and c.Cname=#{cityName}
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE o.PAY_TARGET_ID LIKE '%free%'
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+    </select>
+    <select id="vipUserToSVIP" resultType="java.lang.Integer">
+        SELECT COUNT(1) from  T_LT_LOCATION_PAY_ORDER o
+        <if test="provinceName != null">
+            JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID = o.USER_ID
+            join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+            WHERE o.ORDER_STATUS=100
+            and p.Pname=#{provinceName}
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="cityName != null">
+            JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID = o.USER_ID
+            join T_SDF_CITY c on t.CITY_CODE = c.Ccode
+            WHERE o.ORDER_STATUS=100
+            and c.Cname=#{cityName}
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="cityName == null and provinceName == null">
+            WHERE o.ORDER_STATUS=100
+            <if test="startDate != null and endDate != null">
+                AND o.ORDER_FINISH_TIME BETWEEN
+                #{startDate} and #{endDate}
+            </if>
+        </if>
+    </select>
+    <select id="getVipOrSvipNum" resultType="com.wf.user.model.ProvinceUser">
+        SELECT p.Pname as provincename,COUNT(1) as num from  T_LT_LOCATION_PAY_ORDER o
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT t on t.ID = o.USER_ID
+        join T_SDF_PROVINCE p on p.Pcode=t.PROVINCE_CODE
+        WHERE
+        <if test="type.equals('vip')">
+            o.PAY_TARGET_ID LIKE '%free%'
+        </if>
+        <if test="type.equals('svip')">
+            o.PAY_TARGET_ID not LIKE '%free%'
+            and LENGTH(o.PAY_TARGET_ID) > 10
+        </if>
+        <if test="startDate != null and endDate != null">
+            AND o.ORDER_FINISH_TIME BETWEEN #{startDate} and #{endDate}
+        </if>
+        GROUP BY p.Pname
+    </select>
+    <select id="getNameByproxycode" resultType="java.lang.String">
+        SELECT e.`NAME` from T_LT_LOTTERYBUYER_OR_EXPERT e
+        WHERE e.PROXY_INVITECODE=#{proxycode}
+    </select>
+    <select id="getNameBystation" resultType="java.lang.String">
+        SELECT e.`NAME` from T_LT_LOTTERYSTATION t
+        JOIN T_LT_LOTTERYBUYER_OR_EXPERT e on e.id=t.managerId
+        WHERE t.INVITE_CODE=#{stationcode}
+    </select>
+    <select id="getUserCodeinfo" resultType="com.wf.user.model.UserInviteProxyCode">
+        SELECT DISTINCT(e.`NAME`) as name, DATE(e.CREATE_TIME) as date,
+        e.INVITE_CODE as invitecode,e.INVITE_CODE_OF_PROXY as proxy
+        from T_LT_LOCATION_PAY_ORDER o
+        join T_LT_LOTTERYBUYER_OR_EXPERT e on e.id=o.USER_ID
+        <if test="provinceName != null">
+            join T_SDF_PROVINCE p on e.PROVINCE_CODE=p.pcode
+            WHERE
+            <if test="type.equals('svip')">
+                o.PAY_TARGET_ID not LIKE '%free'
+            </if>
+            <if test="type.equals('vip')">
+                o.PAY_TARGET_ID LIKE '%free'
+            </if>
+            and p.pname=#{provinceName}
+            <if test="startDate != null and endDate != null">
+                AND e.CREATE_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        <if test="cityName != null">
+            join T_SDF_CITY c on e.CITY_CODE=c.ccode
+            WHERE
+            <if test="type.equals('svip')">
+                o.PAY_TARGET_ID not LIKE '%free'
+            </if>
+            <if test="type.equals('vip')">
+                o.PAY_TARGET_ID LIKE '%free'
+            </if>
+            and c.cname=#{cityName}
+            <if test="startDate != null and endDate != null">
+                AND e.CREATE_TIME BETWEEN #{startDate} and #{endDate}
+            </if>
+        </if>
+        ORDER BY e.CREATE_TIME desc
+    </select>
+</mapper>

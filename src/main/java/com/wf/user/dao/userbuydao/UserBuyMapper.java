@@ -1,9 +1,6 @@
 package com.wf.user.dao.userbuydao;
 
-import com.wf.user.model.CityUser;
-import com.wf.user.model.DateUser;
-import com.wf.user.model.ProvinceUser;
-import com.wf.user.model.UserPaydatenametype;
+import com.wf.user.model.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

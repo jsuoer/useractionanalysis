@@ -107,6 +107,18 @@
                                 <span class="fa-stack fa-lg pull-left">
                                     <i class="fa fa-flag fa-stack-1x "></i>
                                 </span>用户消费走势</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/vip2svip.jsp" class="J_menuItem">
+                                <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-flag fa-stack-1x "></i>
+                                </span>VIP升级为SVIP</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/vipsviparea.jsp" class="J_menuItem">
+                                <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-flag fa-stack-1x "></i>
+                                </span>VIP&SVIP区域分布</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userbuy/vipsvipfrom.jsp" class="J_menuItem">
+                                <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-flag fa-stack-1x "></i>
+                                </span>VIP&SVIP来源</a></li>
                 </ul>
             </li>
 

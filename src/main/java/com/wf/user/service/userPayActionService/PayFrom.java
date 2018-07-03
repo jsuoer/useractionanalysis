@@ -40,4 +40,17 @@ public interface PayFrom {
 
     PageInfo userPayFailInfo(String startDate, String endDate, String provinceName, String cityName, int page, int size);
 
+    /**
+     * 用户vip的数量，从vip升级到svip的数量
+     */
+    List vip2SvipNum(String startDate, String endDate,String provinceName,String cityName);
+
+    /**
+     * 购买vip/svip 用户区域分布
+     */
+    List vipOrsvipUserArea(String startDate, String endDate,String type);
+
+
+    PageInfo userAndHisFrom(String startDate, String endDate, String provinceName, String cityName, String type, int limit, int offset );
+
 }

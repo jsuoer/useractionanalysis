@@ -2,6 +2,7 @@ package com.wf.user.controller.userPayController;
 
 import com.github.pagehelper.PageInfo;
 import com.wf.user.common.PageResult;
+import com.wf.user.model.ProvinceUser;
 import com.wf.user.service.userPayActionService.PayFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,16 @@ public class PayTypeController {
 
     @Autowired
     private PayFrom payFrom;
+
+    @ResponseBody
+    @RequestMapping("/userfrominfo")
+    public PageResult sssad(String startDate, String endDate, String provinceName, String cityName, String type, int limit, int offset){
+        PageInfo pageInfo = payFrom.userAndHisFrom(startDate, endDate, provinceName, cityName, type, limit, offset);
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal((int) pageInfo.getTotal());
+        pageResult.setRows(pageInfo.getList());
+        return pageResult;
+    }
 
     @ResponseBody
     @RequestMapping("/typenum")
@@ -81,10 +92,29 @@ public class PayTypeController {
         return  pageResult;
     }
 
-
-
-
-
-
-
+    @ResponseBody
+    @RequestMapping("/vipsvip")
+    public List vipuserinfo(String startDate, String endDate, String provinceName, String cityName){
+        return payFrom.vip2SvipNum(startDate, endDate, provinceName, cityName);
     }
+
+    @ResponseBody
+    @RequestMapping("/vipsvipusernum")
+    public List vipsvipusernum(String startDate, String endDate,String type){
+        List<ProvinceUser> provinceUsers = payFrom.vipOrsvipUserArea(startDate, endDate, type);
+        List list = new ArrayList();
+        for(ProvinceUser provinceUser:provinceUsers){
+            Map map = new HashMap();
+            map.put("name",provinceUser.getProvincename());
+            map.put("value",provinceUser.getNum());
+            list.add(map);
+        }
+        return list;
+    }
+
+
+
+
+
+
+}
